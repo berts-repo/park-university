@@ -1,0 +1,11 @@
+Prompt:
+Read source code of ArrayList and answer the following questions (pick one).
+http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/java/util/ArrayList.java
+
+16.a. What’re the purposes of the instance data member size, internally and externally?  
+
+Answer:
+'size' is a private helper in the 'ArrayList' class. It is declared on line 134:
+It is used to initialize the length of the array, and can be found in some other methods 
+including: trimToSize() line 180, and 'public void ensureCapacity(int minCapacity)' on line 194.
+It is used externally with the method 'size()' on line 263 and that would be a public return of 'size'

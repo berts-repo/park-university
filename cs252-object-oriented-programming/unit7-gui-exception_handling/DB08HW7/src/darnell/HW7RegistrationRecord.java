@@ -1,0 +1,62 @@
+/*
+ * HW7RegistrationRecord:
+ *  A simplified class to model basic information of a course registration record.
+ * 
+ * Author: Bert Darnell
+ * Park University
+ * CS252 
+ * 12/4/2022
+* 
+ */
+package darnell;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
+public class HW7RegistrationRecord {  
+  private String courseSessionId;  // registered course session. record id
+  private String studentId;          // registered student. record student id
+  private LocalDateTime timeOfRegistration; // date and time of registration
+  
+  // Intentional: no default constructor
+  
+  // Constructs a registration record object with given values
+  public HW7RegistrationRecord(String courseSessionId,  String studentId, String timeOfRegistrationStr) {
+    // validate parameter data    
+    LocalDateTime temp = LocalDateTime.parse(timeOfRegistrationStr);
+      // DateTimeParseException, child of RuntimeException > DateTimeException
+    
+    // okay
+    this.courseSessionId = courseSessionId;
+    this.studentId = studentId;
+    this.timeOfRegistration = temp.truncatedTo(ChronoUnit.SECONDS); // store time data up to second
+  }
+
+  // Constructs a registration record object with given values
+  public HW7RegistrationRecord(String courseSessionId,  String studentId, LocalDateTime timeOfRegistration) {    
+    // okay
+    this.courseSessionId = courseSessionId;
+    this.studentId = studentId;
+    this.timeOfRegistration = timeOfRegistration.truncatedTo(ChronoUnit.SECONDS); // store time data up to second
+  }
+  
+  // Gets the course session id of this object
+  public String getCourseSessionId() {
+    return courseSessionId;
+  }    
+  
+  // Gets the student id of this object
+  public String getStudentId() {
+    return studentId;
+  }  
+  
+  // Gets the registration time of this object
+  public LocalDateTime getTimeOfRegistration() {
+    return timeOfRegistration;
+  }  
+
+  // Returns a string representation of this object 
+  public String toString() { 
+    return String.format("%s, Student: %s, Time of Registration: %s", courseSessionId, studentId, timeOfRegistration);   
+  }  
+  
+} // end class HW7RegistrationRecord

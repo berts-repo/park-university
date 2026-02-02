@@ -1,0 +1,129 @@
+/*
+ * HW7DataSource (incomplete)
+ *   Connects to data source of course sessions and registration records.
+ *
+ * Author: CS252
+ * ADD: student info
+ * ADD: Last Update date
+ */
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import doe.HW7CourseSession;
+
+public class HW7DataSource {
+
+  // Loads course session data from the given file and returns the data
+  // in an ArrayList
+  public static ArrayList<HW7CourseSession> loadCourseSessionData(String fileName) {
+    ArrayList<HW7CourseSession> list = new ArrayList<>(); // to store data from file
+    int numOfRecordsInDataSource = 0;
+
+    try (Scanner fileIn = new Scanner(Path.of(fileName))) { // open data file
+      // 1st row should be header. skip
+      if (fileIn.hasNext())
+        fileIn.next();
+
+      // loop through multiple records
+      while (fileIn.hasNext()) { // still have records?
+        // 1. read one record
+        String record = fileIn.next();
+        numOfRecordsInDataSource++;
+
+        // 2. extract data:
+        // col 0: course number
+        // col 1: year
+        // col 2: term
+        // col 3: section
+        // col 4: cap
+        String[] cols = record.split(","); // split a comma separated line
+        String courseNumber = cols[0].trim().toUpperCase();
+        int year = Integer.parseInt(cols[1].trim());
+        String term = cols[2].trim().toUpperCase();
+        String section = cols[3].trim().toUpperCase();
+        int cap = Integer.parseInt(cols[4].trim());
+
+        if (courseNumber.isEmpty())
+          throw new IllegalArgumentException("empty course number");
+        if (term.isEmpty())
+          throw new IllegalArgumentException("empty term");
+        if (section.isEmpty())
+          throw new IllegalArgumentException("empty section");
+
+        // 3. create an object from the data
+        // courseNumber, year, term, section, cap
+        HW7CourseSession oneRecord = new HW7CourseSession(courseNumber,
+            year,
+            term,
+            section,
+            cap);
+
+        // 4. add to arraylist
+        list.add(oneRecord);
+
+        // end one record
+      }// end while: reading all records
+
+    } catch (IllegalArgumentException iae) {
+        // thrown by course session constructor call
+        // will also catch its subtype NumberFormatException from parseInt()
+      System.out.println("Invalid course session data: " + iae.getMessage());
+      System.out.println("Record #" + numOfRecordsInDataSource + " not added."); // list.add() didn't run for this record
+    } catch (IOException ioe) {
+      System.out.println("Error reading \"" + fileName + "\" file: " + ioe);
+      System.out.println("Records read: " + numOfRecordsInDataSource + "; Records processed: " + list.size());
+    }
+    // end file input
+
+    return list;
+  } // end loadCourseSessionData
+
+  // Loads registration data from the given file and returns the data
+  // in an ArrayList
+  public static ArrayList<HW7RegistrationRecord> loadRegistrationData(String fileName) {
+    ArrayList<HW7RegistrationRecord> list = new ArrayList<>(); // to store data from file
+    int numOfRecordsInDataSource = 0;
+
+    // ADD CODE
+    /*
+     You should have a good understanding of the following before working on this method:
+        - the other loadxxx() method and the data it works with;
+        - the registration data file;
+        - the HW7RegistrationRecord class.
+
+     Follow this algorithm:
+
+     try (use try-with-resources statement to open the file and connect to a Scanner obj)
+       read and skip header row of the data file
+
+       Loop to read all records from data file
+         read one record as a big string
+         increment numOfRecordsInDataSource
+         break the big string into cols
+         extract data from cols: courseSessionId, studentId, timeOfRegistration as a string
+         - use trim() of String to clean string data before using the data
+         - convert the trimmed course session id to uppercase before using the data
+
+         check for empty course session id and throw an instance of IllegalArgumentException
+         check for empty student id and throw an instance of IllegalArgumentException
+
+         create a HW7RegistrationRecord object from the data. Use the constructor with three string parameters
+
+         add the object to the local ArrayList
+       End Loop
+     catch IllegalArgumentException and print a proper msg to screen
+     catch DateTimeParseException and print a proper msg to screen // may be thrown by HW7RegistrationRecord constructor
+     catch IOException and print a proper msg to screen
+
+     */
+
+    // END ADD CODE
+
+    return list;
+  } // end loadRegistrationData
+
+} // end class HW7DataSource

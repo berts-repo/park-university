@@ -1,0 +1,14 @@
+Answer to #9
+
+
+Given two reference variables t1 and t2, and that t1 == t2 evaluates to true,
+t1.equals(t2) must be ___________.
+A. false
+B. true
+Because t1 == t2 is comparing the references, if the references are the same, then the values will be too.
+2) Given two reference variables t1 and t2, and that t1.equals(t2) evaluates to true, t1 ==
+t2 ___________.
+A. is always false
+B. is always true
+C. may be true or false
+Object.equals() compares the value in an object, where they could be two different objects.

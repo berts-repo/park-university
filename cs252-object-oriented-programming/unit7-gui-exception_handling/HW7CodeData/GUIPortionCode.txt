@@ -1,0 +1,251 @@
+
+//----------
+// imports
+//----------
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+
+import java.util.ArrayList;
+
+
+//-------------------------
+// class body portion code
+//-------------------------
+Note: please put the following in your GUI class. You need to add a main(). 
+
+
+  //---------------------------------------
+  // data access
+  private HW7RegistrationManager rm;
+ 
+  // GUI constants
+  private static final String BORDER_STYLE = "-fx-padding: 5;" + "-fx-border-style: solid inside;"
+      + "-fx-border-width: 1;" + "-fx-border-insets: 5;"
+      + "-fx-border-radius: 5;"  + "-fx-border-color: grey;";
+  
+  // GUI data
+  private String studentId; // student id used in current request 
+  private ArrayList<HW7CourseSession> courseSearchResultList; // course search result
+  private ArrayList<HW7CourseSession> courseScheduleList; // courses the current student id has registered for
+    
+  // GUI components
+  private TextField studentIdTextField;
+  private TextField courseNumTextField;
+  private Button addButton;
+  private Button dropButton;
+  
+  private ListView<String> searchResultListView;// GUI list of (course number + section id) portion of course search result   
+  private ListView<String> scheduleListView;// GUI list of (course number + section id) portion of student schedule   
+  //---------------------------------------
+  
+  // entry point of a JavaFX GUI program 
+  // Set up GUI and event handlers 
+  public void start(Stage stage) {  
+    initData(); 
+    
+    // main layout
+    BorderPane root = new BorderPane();
+    root.setPadding(new Insets(10, 10, 10, 10)); 
+    
+    // top region
+    String topMsg = "Course registration for " + rm.getCurrentRegistrationTerm() + " " +
+        rm.getCurrentRegistrationYear() + " is open!";
+    Label topLabel = new Label(topMsg);
+    topLabel.setFont(new Font(20));
+    root.setTop(topLabel);
+    
+    // center region    
+    HBox listViewRow = new HBox(5, makeSearchResultPane(), makeSchedulePane());
+    
+    VBox centerRegion = new VBox(5, makeCourseSearchBlock(), listViewRow);
+    root.setCenter(centerRegion);
+    
+    // bottom region
+    Button exitButton = new Button("Exit");
+    exitButton.setOnAction( e -> Platform.exit() );
+    root.setBottom(exitButton);
+    
+    // stage
+    stage.setScene(new Scene(root));
+    stage.setTitle("StuPre | Course Registration");
+    stage.show();
+  }
+  
+  // initialize data. If failed, close the program. 
+  private void initData() {
+    rm = new HW7RegistrationManager();
+    if (rm == null || rm.getCurrentRegistrationTerm() == null) {
+      String msg = "Not able to load necessary data. Will shut down the program.";
+      Alert alert = new Alert(AlertType.ERROR, msg);
+      alert.setHeaderText("Course Registration System Error");
+      alert.showAndWait();
+      Platform.exit(); 
+    } 
+  }
+  
+  // display an alert with the specified header text and content msg, 
+  // and wait for an acknowledgement
+  private void displayAlert(String contextMsg, String msg) {
+    Alert alert = new Alert(AlertType.ERROR, msg);
+    alert.setHeaderText(contextMsg);
+    alert.showAndWait();  
+  }
+  
+  // Set up the GUI of the course search area
+  private Pane makeCourseSearchBlock() {
+    // 1st row
+    Label courseSearchBlockLabel = new Label("Course Search");
+    courseSearchBlockLabel.setFont(Font.font(18));
+    
+    // 2nd row
+    studentIdTextField = new TextField();
+    HBox studentIdRow = new HBox(10, new Label("Enter your student ID"), studentIdTextField);
+    
+    // 3rd row
+    courseNumTextField = new TextField();
+    Button searchButton = new Button("Search");
+    searchButton.setOnAction(e -> searchCourse());
+    HBox courseNumRow = new HBox(10, new Label("Course Number (e.g. CS252)"), courseNumTextField, searchButton);
+    
+    // together
+    VBox courseSearchBlock = new VBox(5, courseSearchBlockLabel, studentIdRow, courseNumRow);
+    courseSearchBlock.setStyle(BORDER_STYLE);
+    
+    return courseSearchBlock;
+  }
+  
+  // event handler for search course button
+  private void searchCourse() {
+    // retrieve user input: student id and course number
+    studentId = studentIdTextField.getText().trim();
+    String courseNumStr = courseNumTextField.getText().trim().toUpperCase();
+    
+    // check empty student id input
+    if (studentId.isEmpty()) { 
+      displayAlert("Course Search", "Please provide a valid student id.");
+      studentIdTextField.requestFocus();
+      studentIdTextField.selectAll();
+      return;
+    }
+
+    // search and load course schedule of this student
+    courseScheduleList = rm.searchByStudentId(studentId);
+    initScheduleListView(); 
+    
+    // ADD CODE: 
+    // Follow the example of the student id portion in this method
+    // but be sure to work with coureNumTextField, 
+    // courseSearchResultList (an arraylist instance data member),
+    // call an method from rm to search by course number, 
+    // and call a method to initialize search result list view.
+    //
+    // 1. check empty course number input
+    // 2. search and load course search result
+    
+    // END ADD CODE
+    
+  } // end searchCourse
+  
+  // Initialize schedule list view with data in courseScheduleList
+  private void initScheduleListView() {
+    ArrayList<String> courseCodeList = new ArrayList<>();
+    for (HW7CourseSession cs : courseScheduleList) {
+      courseCodeList.add(cs.getCourseNumber() + "-" + cs.getSection());
+    }
+    ObservableList<String> names = FXCollections.observableArrayList(courseCodeList); 
+    scheduleListView.setItems(names);
+    
+    // turn on drop if at least one course in schedule
+    dropButton.setDisable(courseScheduleList.isEmpty()); 
+  }
+  
+  // Initialize search result list view with data in courseSearchResultList
+  private void initSearchResultListView() {
+    ArrayList<String> courseCodeList = new ArrayList<>();
+    for (HW7CourseSession cs : courseSearchResultList) {
+      courseCodeList.add(cs.getCourseNumber() + "-" + cs.getSection());
+    }
+    ObservableList<String> names = FXCollections.observableArrayList(courseCodeList); 
+    searchResultListView.setItems(names);
+    
+    // turn on add if at least one result
+    addButton.setDisable(courseSearchResultList.isEmpty()); 
+  }
+  
+  // Set up GUI of the search result pane area
+  private Pane makeSearchResultPane() {
+    BorderPane pane = new BorderPane();
+    pane.setPadding(new Insets(10));   
+    pane.setStyle(BORDER_STYLE);
+    
+    // a label in the top region
+    Label blockLabel = new Label("Search Result");
+    blockLabel.setFont(Font.font(18));
+    pane.setTop(blockLabel); 
+    
+    // listView in the center region. Initially empty
+    searchResultListView = new ListView<String>(); 
+    final int ROW_HEIGHT = 24;
+    searchResultListView.setPrefHeight(4 * ROW_HEIGHT + 2);
+    pane.setCenter(searchResultListView); 
+    
+    // an add button in the bottom region
+    addButton = new Button("Add Course");
+    addButton.setOnAction(e -> processAdd());
+    addButton.setDisable(true); // until some search result
+    pane.setBottom(addButton);
+    
+    return pane;
+  }
+ 
+  // event handler for add button
+  private void processAdd() {
+    // empty
+  }
+  
+  // Set up GUI of the schedule pane area 
+  private Pane makeSchedulePane() {    
+    BorderPane pane = new BorderPane();
+    pane.setPadding(new Insets(10));   
+    pane.setStyle(BORDER_STYLE);
+    
+    // a label in the top region
+    Label blockLabel = new Label("Your Schedule (Registered)");
+    blockLabel.setFont(Font.font(18));
+    pane.setTop(blockLabel);
+    
+    // schedule list view in center region 
+    scheduleListView = new ListView<String>();
+    final int ROW_HEIGHT = 24;
+    scheduleListView.setPrefHeight(4 * ROW_HEIGHT + 2);
+    pane.setCenter(scheduleListView);
+    
+    // drop button in bottom region
+    dropButton = new Button("Drop Course");
+    dropButton.setOnAction(e -> processDrop());
+    dropButton.setDisable(true); // until some added courses
+    pane.setBottom(dropButton);
+    
+    return pane;
+  }
+  
+  // event handler for the drop button
+  private void processDrop() {
+    // empty
+  }

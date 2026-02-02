@@ -1,0 +1,158 @@
+/*
+ * HW7CourseSession:
+ *  A simplified class to model basic information of an offered section of a college course.
+ * 
+ * Author: Bert Darnell
+ * Park University
+ * CS252 
+ * 12/4/2022
+ */
+package	darnell;
+import java.util.ArrayList;
+
+public class HW7CourseSession implements Comparable<HW7CourseSession> {
+  // possible term values
+  public final static String[] TERMS = {"F1A", "F2A", "S1A", "S2A", "U1A"};
+
+  private String sessionId; // course number + section + term + year
+  private String courseNumber; // like CS252, CS365A
+  private int year;
+  private String term;
+  private String section; // DL, DLA, ...
+  private int cap;   // default cap
+  
+  private ArrayList<String> roster; // just track student ids
+  private String statusMsg; // message for a failed add/remove. 
+                            // should be checked after such an add/remove
+  
+  public static boolean isValidTerm(String termStr) {
+    for (String s : TERMS) {
+      if (termStr.equals(s))
+        return true;
+    }
+    return false;
+  }
+
+  // Intentional: no default constructor
+
+  // Constructs a CourseOffering object with given values
+  public HW7CourseSession(String courseNumber, int year, String term, String section, int cap) {
+    // validate parameter values
+    if (year <= 0) 
+      throw new IllegalArgumentException("Invalid year value: " + year);
+
+    if (!isValidTerm(term))
+      throw new IllegalArgumentException("Invalid term value: " + term);
+
+    if (cap < 0)
+      throw new IllegalArgumentException("Invalid course cap: " + cap); 
+
+    // parameters are good to use now
+    this.courseNumber = courseNumber;
+    this.year = year;
+    this.term = term;
+    this.section = section;
+    this.cap = cap;
+    this.sessionId = courseNumber + section + term + year;
+    roster = new ArrayList<>();
+    statusMsg = "";
+  }
+
+  // Gets the session id of this object
+  public String getSessionId() {
+    return sessionId;
+  } 
+  
+  // Gets the course number of this object
+  public String getCourseNumber() {
+    return courseNumber;
+  }  
+
+  // Gets the year of this object
+  public int getYear() {
+    return year;
+  }   
+
+  // Gets the term of this object
+  public String getTerm() {
+    return term;
+  }  
+
+  // Gets the session of this object
+  public String getSection() {
+    return section;
+  }   
+
+  // Gets the course cap of this object
+  public int getCourseCap() {
+    return cap;
+  } 
+
+  // Gets the count of students rolled for this object
+  public int getEnrollmentCount() {
+    return roster.size();
+  }
+  
+  // Gets the status message of this object
+  public String getStatusMsg() {
+    return statusMsg;  
+  }
+  
+  // Returns true if the course session is full or overfilled, false otherwise
+  public boolean isSessionFull() {
+    return roster.size() >= cap;  
+  }
+  
+  // Add a student (id) into this session and return true
+  // if the session still has unfilled seats and student is 
+  // not already on the list, otherwise return false, an error 
+  // message stored, and this object unchanged.
+  // Meant for internal use so protected.
+  protected boolean addStudent(String studentId) {
+    if (roster.contains(studentId)) {
+      statusMsg = "Error in adding student to " + 
+          sessionId + ": " + studentId + " already in this class.";
+      return false;  
+    }
+    
+    if (isSessionFull() ) {  
+      statusMsg = "Error in adding student to " + 
+          sessionId + ": " + " this class is full.";
+      return false;
+    }
+    
+    statusMsg = "";
+    roster.add(studentId);
+    return true;
+  }
+  
+  // Remove a student (id) from this session and return true
+  // if the student is on the roster, otherwise return false, 
+  // an error msg stored, and this object unchanged
+  // Meant for internal use so protected.
+  protected boolean removeStudent(String studentId) {
+    boolean isDone = roster.remove(studentId);
+    if (!isDone) {
+      statusMsg = "Error in removing student from " + 
+          sessionId + ": " + studentId + " not found in class.";      
+    } else {
+      statusMsg = "";
+    }
+      
+    return isDone;
+  }
+    
+  // Returns a string representation of this object
+  @Override
+  public String toString() {
+    //         like: CS252DLF1A2021, Cap 20, Enrolled: 0
+    return String.format("%s, Cap: %d, Enrolled: %d", sessionId, cap, getEnrollmentCount());   
+  }
+  
+  // Compare the session id of two CourseSessions lexicographically
+  @Override
+  public int compareTo(HW7CourseSession other) {
+    return sessionId.compareToIgnoreCase(other.sessionId);
+  }
+
+} // end class HW7CourseSession
