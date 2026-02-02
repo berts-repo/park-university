@@ -1,0 +1,117 @@
+# Introduction 
+
+The purpose of this assignment is to practice the use of conditional and repetition statements in C/C++.
+
+ 
+# Directions 
+
+Write a C/C++ program to keep a tally on the vote for 10 candidate numbers. After the vote is concluded, the tallies will be displayed and a winner number will be declared.
+
+Do not use Arrays or any other advanced concept that was not reviewed in the class yet to solve this assignment. Assignments that use these concepts will only be granted 1 point for presentation.
+
+# Requirements for the program include:
+
+* Name the C/C++ file with the following format: LastNameFirstNameUnit2cpp.
+* For example the Instructor may create a file with the following name: TonsmannGuillermoUnit2.cpp.
+* Select appropriate identifiers and data types for all variables. Declare all of them correctly.
+* The program will initially request a starting number between 0 and 90 (inclusively) from the users. If the users enter a number outside this range, the program will keep asking for an appropriate number until one is given. This could be accomplished with a loop. Once the starting number is selected, the program will indicate that users may vote for that number and the next 9 integer numbers (10 options in total). The program will print all these numbers for users to see. These are the candidate numbers.
+* After all candidate numbers are printed, the program will contain a loop that will read user numbers until a negative number is given. A negative number will indicate the end of the votes and the loop. Inside the loop, separate tallies for each candidate number are going to be updated. A tally can be implemented with a counter variable that is initialized to zero at the beginning of the program, and that is incremented every time a user votes for it. There are 10 possible candidate numbers, so there should be 10 counter variables for Tallies. If a user enters a value that is not one of the 10 possible candidate numbers, a message indicating this mistake is printed, and the vote is not counted.
+* At the end of the loop print the results of the tallies for all candidate numbers. Then, the program should determine who the winner of the vote is by selecting the candidate number that has the higher tally. If more than one candidate number has the same higher count, the smallest candidate number wins. To accomplish this, two additional variables may be used, one to hold the winner candidate number and another to hold the value of its highest tally. One could initialize these variables with the first candidate number and its tally, and then compare this initial tally with each one of the other tallies. Every time the program finds some number with a higher tally it keeps both, the new candidate number and its tally. After inspecting all candidate numbers, the new variables will have the winner information. This information should be displayed to declare the vote winner. If no votes were given, the program should indicate so.
+* Include appropriate comments. In particular include a header for the main function and description of all variables.
+* The program should compile and run. The output should be close to the examples provided below.
+
+# Deliverables
+
+Submit only the C/C++ program file when completed. Do not submit anything else. This file is the .cpp file you created with the right name.
+Due Date
+
+    by 11:59 p.m., Sunday, CT
+
+# Examples
+
+The program should reproduce the following three input-output sessions:
+
+Example Run 1:
+---------------------------------------------------------------------------------
+Please enter an integer number between 0 thru 90 (inclusively): 100
+Please enter an integer number between 0 thru 90 (inclusively): -3
+Please enter an integer number between 0 thru 90 (inclusively): 5
+Very good! Please vote for one of the following numbers
+ 5 6 7 8 9 10 11 12 13 14
+Vote for your favorite number between 5 thru 14 (negative number to end):5
+Vote for your favorite number between 5 thru 14 (negative number to end):6
+Vote for your favorite number between 5 thru 14 (negative number to end):7
+Vote for your favorite number between 5 thru 14 (negative number to end):8
+Vote for your favorite number between 5 thru 14 (negative number to end):9
+Vote for your favorite number between 5 thru 14 (negative number to end):10
+Vote for your favorite number between 5 thru 14 (negative number to end):11
+Vote for your favorite number between 5 thru 14 (negative number to end):12
+Vote for your favorite number between 5 thru 14 (negative number to end):13
+Vote for your favorite number between 5 thru 14 (negative number to end):14
+Vote for your favorite number between 5 thru 14 (negative number to end):15
+ (15) is not in the range [5-14]
+Vote for your favorite number between 5 thru 14 (negative number to end):5
+Vote for your favorite number between 5 thru 14 (negative number to end):6
+Vote for your favorite number between 5 thru 14 (negative number to end):7
+Vote for your favorite number between 5 thru 14 (negative number to end):8
+Vote for your favorite number between 5 thru 14 (negative number to end):6
+Vote for your favorite number between 5 thru 14 (negative number to end):8
+Vote for your favorite number between 5 thru 14 (negative number to end):-3
+The Tallies of the numbers are:
+Number 5: 2 votes.
+Number 6: 3 votes.
+Number 7: 2 votes.
+Number 8: 3 votes.
+Number 9: 1 votes.
+Number 10: 1 votes.
+Number 11: 1 votes.
+Number 12: 1 votes.
+Number 13: 1 votes.
+Number 14: 1 votes.
+The winner is number 6 with 3 votes
+
+Example Run 2:
+---------------------------------------------------------------------------------
+Please enter an integer number between 0 thru 90 (inclusively): -27
+Please enter an integer number between 0 thru 90 (inclusively): 91
+Please enter an integer number between 0 thru 90 (inclusively): 90
+Very good! Please vote for one of the following numbers
+ 90 91 92 93 94 95 96 97 98 99
+Vote for your favorite number between 90 thru 99 (negative number to end):-3
+The Tallies of the numbers are:
+Number 90: 0 votes.
+Number 91: 0 votes.
+Number 92: 0 votes.
+Number 93: 0 votes.
+Number 94: 0 votes.
+Number 95: 0 votes.
+Number 96: 0 votes.
+Number 97: 0 votes.
+Number 98: 0 votes.
+Number 99: 0 votes.
+There were no votes properly casted.
+
+Example Run 3:
+---------------------------------------------------------------------------------
+Please enter an integer number between 0 thru 90 (inclusively): 0
+Very good! Please vote for one of the following numbers
+ 0 1 2 3 4 5 6 7 8 9
+Vote for your favorite number between 0 thru 9 (negative number to end):2
+Vote for your favorite number between 0 thru 9 (negative number to end):4
+Vote for your favorite number between 0 thru 9 (negative number to end):6
+Vote for your favorite number between 0 thru 9 (negative number to end):8
+Vote for your favorite number between 0 thru 9 (negative number to end):10
+ (10) is not in the range [0-9]
+Vote for your favorite number between 0 thru 9 (negative number to end):-1
+The Tallies of the numbers are:
+Number 0: 0 votes.
+Number 1: 0 votes.
+Number 2: 1 votes.
+Number 3: 0 votes.
+Number 4: 1 votes.
+Number 5: 0 votes.
+Number 6: 1 votes.
+Number 7: 0 votes.
+Number 8: 1 votes.
+Number 9: 0 votes.
+The winner is number 2 with 1 votes

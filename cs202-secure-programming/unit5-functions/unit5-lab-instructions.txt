@@ -1,0 +1,148 @@
+# Introduction 
+
+The purpose of this assignment is to practice the use of multiple functions and multiple files, with global and static variables in C/C++.
+
+ 
+# Directions 
+
+Write a C/C++ application that will create an array of random integer numbers, sort it, modify it and print it at various stages. These actions will be performed by different functions in more than one file. The array itself will be external, and some functions will contain static variables.
+
+Do not use advanced concepts that were not reviewed in the class yet to solve this assignment. Assignments that use these concepts will only be granted 1 point for presentation.
+
+The program will include of 4 separate C/C++ files that should work together in a project. Requirements for each of these files are:
+
+# Requirements for File 1: Mylib.cpp
+
+1. The first file will contain the declaration and initialization of an external array of integer values named globalArray. The size of this array should be kept in the macro constant named SIZE, and it should be set to 10. The elements of the array should be all set initially to zero.
+
+2. This first file will also contain the definition of three functions. All these functions will work with the globalArray and its SIZEas set above:
+
+	a. int generateRandomValues()
+        
+Before starting any calculation, this function should print a message indicating that it started to work, something like “Generating random values ...” The function then should populate all elements of globalArray with random numbers between 100000 and the Park Student ID number. Students may review and modify the program provided in the course material to generate random numbers using the Windows.h and bcrypt.h libraries. This function should return a positive number to indicate that the generation of all numbers was successful.
+
+        b. int printValues(char * msg)
+        
+This function will print all elements of globalArray in order (one value per line as shown in the example below). It will initially define a static variable to keep track of the number of times the function was used to print the array. The function will print the value of this count first, then it will print the message provided in its string parameter (msg underlined by dashes, and finally the elements of the array, followed by another line of dashes similar to the one printed before. This function should also return a positive number to indicate that printing was successful.
+
+        c. int modValues()
+        
+Before starting any calculation, this function should print a message indicating that it started to work, something like “Modifying random numbers ...” This function will modify the elements of globalArray as follows: the values of all its elements, except the last, should be replaced in order by the remainder (%) obtained when dividing the next element with the current one. For example, the element at index zero should become the remainder after dividing the element at index one by the element at index zero. The element at index one should become the remainder after dividing the element at index two by the element at index one, and so on. This can be accomplished with a loop. Only the last element of the array should be replaced differently, by the remainder (%) obtained when dividing the last element (itself) with the first one. This function should also return a positive number to indicate that the modification was successful.
+
+ 
+
+ 
+# Requirements for File 2: Sort.cpp
+
+    This file is provided with this assignment. It is the file named CS202-Unit05-05-Homework05-Sort.cpp 
+
+    Download CS202-Unit05-05-Homework05-Sort.cpp. It contains the function sortValues. This function sorts the elements of the external globalArray, when access to the array and its SIZE is added to the file (not currently available). It is the job of the student to provide this connection. The function sortValues should also be modified to define a static variable to keep track of the number of times the function was used to sort the array. The value of this count should be printed every time the function is executed.
+
+ 
+# Requirements for File 3: Main.cpp
+
+    This is the driver of the application. It will contain only one function: This function will call the other previously defined functions in the following order:
+            generateRandomValues
+            printValues
+            sortvalues
+            printValues
+            modvalues
+            printValues
+            sortvalues
+            printValues
+
+    Because each of these functions returns a positive value when they run successfully, main should stop if any of these functions produces an error.
+
+ 
+# Requirements for File 4: MyHead.hpp
+
+    Use the header file to #define values for macro constants and declare function prototypes as needed to connect all files.
+
+ 
+# General Requirements
+
+    Include all four files in a Microsoft Visual C/C++ project. Name this project using the following format: LastNameFirstNameUnit5. For example the Instructor may create a project with the following name: TonsmannGuillermoUnit5. The program should compile and run under this project. The output should be close to the examples provided below.
+
+    Select appropriate identifiers and data types for all variables. Declare all of them correctly. Take special care of naming variables and data types as needed to connect the four files and made them operative.
+
+    Include appropriate comments in all files. In particular include a header for each function and description of all variables.
+
+# Deliverables 
+
+Notice that the deliverables this time are different to the ones in previous assignments: Compress the Microsoft Visual C/C++ Project into a .zip file with the same name as the project (LastNameFirstNameUnit5.zip as described before). Include all files inside the project’s folder. Submit the zip file when completed.
+
+# Due Date
+
+    by 11:59 p.m., Sunday, CT
+
+# Examples
+
+The program should produce a session like this (numbers may change because they are random numbers):
+
+Generating random values ...
+
+Printing number 1 ...
+ Original random values
+-------------------------------
+  1 101112
+  2 906281
+  3 247398
+  4 247615
+  5 277948
+  6 235100
+  7 226618
+  8 542461
+  9 165721
+ 10 608144
+-------------------------------
+Sorting number 1 ...
+
+Printing number 2 ...
+
+ Sorted random values
+-----------------------------
+  1 101112
+  2 165721
+  3 226618
+  4 235100
+  5 247398
+  6 247615
+  7 277948
+  8 542461
+  9 608144
+ 10 906281
+-----------------------------
+Modifying random numbers ...
+
+Printing number 3 ...
+
+ Modified random values
+--------------------------------
+  1 64609
+  2 60897
+  3 8482
+  4 12298
+  5 217
+  6 30333
+  7 264513
+  8 65683
+  9 298137
+ 10 1755
+--------------------------------
+Sorting number 2 ...
+
+Printing number 4 ...
+
+ Modified and sorted random values
+---------------------------------------------
+  1 217
+  2 1755
+  3 8482
+  4 12298
+  5 30333
+  6 60897
+  7 64609
+  8 65683
+  9 264513
+ 10 298137
+---------------------------------------------

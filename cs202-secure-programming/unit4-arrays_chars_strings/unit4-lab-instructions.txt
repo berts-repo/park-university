@@ -1,0 +1,68 @@
+# Introduction 
+
+The purpose of this assignment is to practice the use of arrays, characters and Strings in C/C++.
+
+ 
+# Directions 
+
+Write a C/C++ program that will create a list of names, by requesting first name, middle initial (only one) and last name of two people. These answers will be create the first two records on the list. The program then will add eight more names to the list with the information from pre-initialized arrays. Once the list contains 10 names, they will be printed and the shortest name will be identified together with its size.
+
+Do not use advanced concept that were not reviewed in the class yet to solve this assignment. Assignments that use these concepts will only be granted 1 point for presentation.
+
+# Requirements for the program include:
+
+* Name the C/C++ file with the following format: LastNameFirstNameUnit4cpp. For example the Instructor may create a file with the following name: TonsmannGuillermoUnit4.cpp.
+
+* Select appropriate identifiers and data types for all variables. Declare all of them correctly.
+
+* The program will initially declare three parallel arrays. Two of them will be bi-dimensional arrays containing the first and last names, respectively, of 8 eight people. The first names of the 8 people are: Robert, Al, Nicole, Pamela, Denzel, Jackie, Lucy and Salma. The last names for the 8 people are De Niro, Pacino, Kidman, Grier, Washington, Chan, Liu and Hayek. The sizes of the strings in these arrays are left to the programmer’s decision. The third array will be an array of 8 unsigned characters in which each element contains the middle initial character (only one character) for each of the 8 people. The initials for the 8 people are A, B, C, D, E, F, G and H, respectively. All three arrays should be declared and initialized at the beginning of the program. For this assignment, it is important to declare these arrays as requested. They will be the base for the activities that follow.
+
+* The purpose of the program is to create a bi-dimensional array of characters with exactly 10 strings, each with up to 21 characters (including the null character ‘\0’), containing the full names of 10 people. Each name will start with the first name followed by a blank space, the middle initial, a dot, another blank space, and the last name to a maximum of 20 characters. For example, a fullname element may be:
+
+“Madeleine R. Washing” for Madeleine R. Washington (notice that characters beyond 20 are not considered for the array elements). This array must be declared and initialized with empty strings at the beginning of the program. Its values will be added in the following requirements.  
+
+* The first two elements of the array of full names described above will come from the user. The program will obtain, in separate requests to the user, the first name, middle initial, and last name of two people. They must be obtained separately and the program must create the first and second element of the array of full names with this information. You must use string functions like strcpy, strcat or memcpy to perform this task. Be mindful that the sizes of the names received may be longer than the 20 characters allocated per each element in the array of full names. A recommended strategy: Have a long auxiliary string in which to concatenate all pieces of a name correctly and then copy only the first 20 characters to the corresponding element of the array of full names. Do not forget to add the ‘\0’ to the end of each element to make it proper string,
+
+* The remaining 8 elements of the array of full names will come by the concatenation of the information in the parallel array. For example the third element of the array must contain the following full name: “Robert A. De Niro”. Do the same for all other names. The processing is similar to the one described above from when the information is obtained from the user. In this case, the information comes from the parallel array. You must use loop to process all eight names.
+
+* After all elements of the array of full names is created, print a table with the heading “Final list of names” and each of the full names in separate lines (see example below).
+
+* Finally, evaluate which name in the array of full names has the shortest name. This can be done with a loop. Before the loop, save the first element of the array as the name with the shortest name, then compare each of the other elements against this shortest element using a loop. If at any time the program finds a shorter name, it saves instead of their previous values. At the end of the loop print the string found to be the shortest and indicate its size. You will use the srtrlen function for these calculations.
+
+* Include appropriate comments. In particular include a header for the main function and description of all variables.
+
+* The program should compile and run. The output should be close to the examples provided below.
+
+# Deliverables
+
+Submit only the C/C++ program file when completed. Do not submit anything else. This file is the .cpp file you created with the right name.
+
+# Due Date
+
+    by 11:59 p.m., Sunday, CT
+
+# Examples
+
+	Example Run:
+	---------------------------------------------------------------------------------
+	Please enter the first name of actor number 1 :Sean
+	Please enter the middle initial of actor number 1 :Alejandro
+	Please enter the last name of actor number 1 :Penn
+	Please enter the first name of actor number 2 :Rabinadratz
+	Please enter the middle initial of actor number 2 :Jose
+	Please enter the last name of actor number 2 :Tagore
+	Final list of names
+	-------------------
+	Sean A. Penn
+	Rabinadratz J. Tagor
+	Robert A. De Niro
+	Al B. Pacino
+	Nicole C. Kidman
+	Pamela D. Grier
+	Denzel E. Washington
+	Jackie F. Chan
+	Lucy G. Liu
+	Salma H. Hayek
+
+	The shortest name in the list is [Lucy G. Liu]
+	It has 11 characters

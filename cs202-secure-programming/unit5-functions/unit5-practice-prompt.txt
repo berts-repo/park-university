@@ -1,0 +1,1 @@
+Present an example that uses correctly an external variable within two translation units. Explain the purpose of declaring the variable as external, how it should be declared, and how it is used. Show as much C/C++ code as needed to explain your example.

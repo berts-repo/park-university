@@ -1,0 +1,3 @@
+Prompt #9: Show an example of a piece of C/C++ code that creates and initializes a structure with a flexible array member (incorrectly). Show also code that fix this problem.
+
+Prompt #10: Show an example of a piece of C/C++ code that defines a structure data type and uses the dot notation to create and initialize some variables of this data type. Convert later this code to replace the dot notation with the arrow notation.

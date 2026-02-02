@@ -1,0 +1,112 @@
+# Introduction 
+
+The purpose of this assignment is to practice the use of pointers, and dynamic allocation in C/C++.
+
+ 
+# Directions 
+
+Write a C/C++ program that will create 3 parallel arrays. The first one is an array of consecutive integer numbers starting at 1. The second array is an array of float numbers representing Fahrenheit degrees of temperature starting at a value provided by the user. The third and last array is an array of float numbers representing the values of the second array converted to Celsius degrees. These arrays will be dynamically created and handled with pointers.
+
+Do not use advanced concepts that were not reviewed in the class yet to solve this assignment. Assignments that use these concepts will only be granted 1 point for presentation.
+
+# Requirements for the program include:
+
+1. You may decide to create a single C/C++ file for this assignment or to create a project with multiple files (at least one .hpp file and one .cpp file). Working submissions that include more than one file will receive a 20% Bonus points for this assignment.
+
+2. If submitting just one C/C++ file, name it with the following format: LastNameFirstNameUnit6.cpp. For example the Instructor may create a file with the following name: TonsmannGuillermoUnit4.cpp.
+
+3. If submitting a project with more than one C/C++ file, include all of them in a running Microsoft Visual C/C++ project. Name this project using the following format: LastNameFirstNameUnit6. For example the Instructor may create a project with the following name: TonsmannGuillermoUnit6. The program should compile and run under this project.
+
+4. Select appropriate identifiers and data types for all variables. Declare all of them correctly.
+
+5. The project will include two separate functions that will create integer and float arrays, respectively. Each of these functions will receive the size of the requested array as a parameter, and they will return an array of the corresponding data type and the requested size, with all its elements initialized to zero. Each function will report error messages and return error values indicating problems, if the input parameters provided to the functions are incorrect, or if functions that allocate dynamic memory do not perform correctly.
+
+6. The project will also include a function that will receive three pointers to parallel arrays, one pointer to an array of integer numbers and two pointers to different arrays of float numbers. This function will also receive the size of the three parallel arrays. The function will print a table with the header “Temperature - Conversion Table”. The table will display the values of the elements of the three parallel arrays representing a consecutive index and corresponding temperatures in Fahrenheit and Celsius degrees respectively. Columns in the table must be properly formatted and aligned. Each column should be properly labeled. The output should be close to the examples provided below.
+
+7. The main function will prompt the user for a size. This will be the size of the parallel arrays. This number should be positive, and the program should not continue until a positive number is given, or until the user enters zero and the program stops. If a positive number is provided for the size, the main function will use the functions described in item 5 above to create three parallel arrays of this given size: one array of integers and two arrays of floats. The main function should stop gracefully if any problem is detected with the creation of the arrays.
+
+8. Once the arrays are constructed, the array of integers should be filled with consecutive integer numbers starting in number 1 and ending in size.
+
+9. The main method should also request an initial temperature in Fahrenheit degrees and also an increment value in Fahrenheit degrees (both float values). The first array of float values should be filled with Fahrenheit degrees. The first element of this array should be the given initial temperature. The remaining elements of the array should be obtained by adding the increment value to the value of the previous array element.
+
+10. The last array of float values should be filled with the conversion of the respective Fahrenheit degrees in the second array to Celsius degrees. The conversion can be performed with the following formula:
+
+11. After all three arrays are filled, the main method will call the printing method described in item 6 to print the conversion table.
+
+12. Include appropriate comments. In particular include a header for each of the functions and description of all variables.
+
+13. The program should compile and run. The output should be close to the examples provided below.
+
+
+# Deliverables 
+
+If the assignment contains just one C/C++ file, submit just this .cpp file with the right name as described above (LastNameFirstNameUnit6.cpp).
+
+If the assignment contains more than one C/C++ file, compress the Microsoft Visual C/C++ Project into a zip.file with the same name as the project (LastNameFirstNameUnit6.zip as described before). Include all files inside the project’s folder. Submit the zip file when completed.
+
+# Due Date
+
+    by 11:59 p.m., Sunday, CT
+    Correct submissions which include more than one meaningful C/C++ file in a project will receive a bonus of 20% of the accrued grade.
+
+# Examples
+
+The program should reproduce the following session:
+
+Example Run 1:
+Enter a positive size of an array (0 to quit):20
+Enter an initial Temperature(Fahrenheit degrees):32
+Enter Temperature Increment (Fahrenheit degrees):10
+
+Temperature - Conversion Table
+-------------------------------
+    #  Fahrenheit    Celsius
+-------------------------------
+    1     32.000      0.000
+    2     42.000      5.556
+    3     52.000     11.111
+    4     62.000     16.667
+    5     72.000     22.222
+    6     82.000     27.778
+    7     92.000     33.333
+    8    102.000     38.889
+    9    112.000     44.444
+   10    122.000     50.000
+   11    132.000     55.556
+   12    142.000     61.111
+   13    152.000     66.667
+   14    162.000     72.222
+   15    172.000     77.778
+   16    182.000     83.333
+   17    192.000     88.889
+   18    202.000     94.444
+   19    212.000    100.000
+   20    222.000    105.556
+-------------------------------
+
+ 
+
+Example Run 2:
+Enter a positive size of an array (0 to quit):8
+Enter an initial Temperature(Fahrenheit degrees):40
+Enter Temperature Increment (Fahrenheit degrees):32
+
+Temperature - Conversion Table
+-------------------------------
+    #  Fahrenheit    Celsius
+-------------------------------
+    1     40.000      4.444
+    2     72.000     22.222
+    3    104.000     40.000
+    4    136.000     57.778
+    5    168.000     75.556
+    6    200.000     93.333
+    7    232.000    111.111
+    8    264.000    128.889
+-------------------------------
+
+ 
+
+Example Run 3:
+Enter a positive size of an array (0 to quit):0
+Exit requested...

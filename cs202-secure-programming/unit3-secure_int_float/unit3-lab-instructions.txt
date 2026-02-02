@@ -1,0 +1,47 @@
+# Introduction 
+
+The purpose of this assignment is to demonstrate proficiency in secure handling of integer and floating point numbers and their operations in C/C++.
+
+ 
+# Directions 
+
+In this assignment you will be required to perform activities involving integer and floating point numbers. Show all your calculations; if you don’t, you cannot get partial credit if the answer is incorrect, and you will not get all the points if the answer is correct.
+
+In this assignment you will not write complete C/C++ programs. Some questions may require you to write secure pieces of code. This mean that the piece of code should be complete and include the correct structures to prevent possible software vulnerabilities, as studied in the course material, but no more. Assume that the code is surrounded by the following:
+
+	#include <limits.h>
+	#include <math.h>
+	int main() {
+       	  // Insert code here
+	}
+
+# Requirements for the program include:
+
+* The assignment will start with your Park ID Number. Convert this number to a binary number. Show the procedure followed to get your result (1 point).
+
+* Show how the binary number obtained in (1) will be represented in RAM as an unsigned long, an unsigned int, and unsigned short. If these formats are too small to represent your number, show the digits that will be discarded next and to the left of the digits inside the format. Clearly differentiate the included and no-included digits (1 point).
+
+* Write a secure piece of code that will convert the unsigned long obtained in (2) onto an unsigned char. Trace the code with your id number (1 point).
+
+* Write a secure piece of code that will convert the unsigned int obtained in (2) onto a signed int. Trace the code with your id number (1 point).
+
+* Show how the negation of the binary number obtained in (1) will be represented in RAM as a signed int using two-complement’s format. Show the procedure followed to get your result (1 point).
+
+* Show how the signed int obtained in (5) will be represented as a signed char if the conversion is forced. Indicate also which number it will represent in the decimal system. Show the procedure followed to get your results (1 point).
+
+* Show the effect of left-shifting on the unsigned short number obtained in (2). Apply left-shifting five times to this number and in each time show its RAM representation and its decimal value.
+
+* Show the effect of right-shifting on the unsigned short number obtained in (2). Apply right-shifting five times to this number and in each time show its RAM representation and its decimal value.
+
+* Show how the integer binary number obtained in (1) will be represented in memory if stored in a float variable using the IEEE-754 standard. Show the procedure followed to get your result (1 point).
+
+* Select any of the mathematical functions in h that have domain restrictions and write a secure piece of code to apply this function to a float variable. Trace what your code will do on the number obtained in (9) and show the final result. (1 point).
+
+# Deliverables
+
+You may use any Word Processor or Word Editor to write a document that will include all your answers to the questions above. Only Word or text (ASCII) files are allowed. You may also produce a PDF document. Alternatively you may answer the question in a piece of paper and take a picture (.JPEG, .GIF, .PNG are acceptable image formats). Whatever format you use, be sure that the answers are readable and understandable to get full credit. Submit only one of the above mentioned files with your answers by the deadline.
+
+# Due Date
+
+    by 11:59 p.m., Sunday, CT
+
