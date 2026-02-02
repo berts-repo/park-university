@@ -1,0 +1,322 @@
+:root {
+	--blue_background: #F0F8FF;
+	--blue_lightSteel: #B0C4DE;
+	--blue_steel: #4682B4;
+	--white: #ffffff;
+	--black: #000000;
+	--grey_dim: #696969;
+}
+/* Global style rules for the body */
+body {
+	font-family: Arial, sans-serif;
+	background-color: var(--blue_background);
+	line-height: 3;
+	font-size: 25px;
+}
+ul {
+	line-height: 2;
+	font-size: 20px;
+	list-style-type: square;
+}
+pre {
+	white-space: pre-wrap; /* Fixed sizing issues for the the code
+	snippet container (.notebox class)*/
+}
+h5 {
+	margin-bottom: 1px;
+}
+iframe {
+	padding: 0;
+	margin: 0;
+}
+/* ID selectors */
+#page {
+	margin: 45px 50px 0px 0px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	font-family: "Lucida Handwriting", cursive;
+	font-variant: small-caps;
+}
+#pageSmall {
+	text-align: center;
+	font-family: "Lucida Handwriting", cursive;
+	font-variant: small-caps;
+	margin-top: 0px;
+}
+#title {
+	margin: 25px 50px 50px;
+	font-family: "Monaco", monospace;
+	text-align: center;
+	font-size: 40px;
+}
+/* Navigation bar style */
+.nav {
+	background-color: var(--black);
+	list-style-type: none;
+	text-align: center;
+	margin: 0px 20px 0px 320px;
+	padding: 0;
+}
+.nav li {
+	display: inline-block; /* Horizontal navigation bar */
+}
+.nav a {
+	text-decoration: none; /* Removces underline for hyperlink */
+	font-size: 17px;
+	padding: 2px;
+	color: var(--blue_steel);
+}
+.nav a:visited {
+	color: var(--blue_lightSteel);
+	outline-color: white;
+}
+.nav a:hover {
+	background-color: var(--white);
+	color: var(--black);
+}
+.nav a:active {
+	font-size: 20px;
+	font-weight: lighter;
+}
+/* The sidebar menu */
+.sidebar {
+	background-color: var(--white);
+	border: solid;
+	border-width:thin;
+	border-right: none;
+	border-color: lightgrey;
+	box-shadow: 2px 1px 2px 1px gray, 1px 1px 2px 0px gray inset;
+	height: 100%;
+	width: 300px; /* Formated to left-margin in bodyContainer */
+	position: fixed;
+	z-index: 1;
+}
+.sidebar ul {
+	list-style-type: none;
+	margin: 2px 2px 2px 0px;
+}
+.sidebar ol {
+	list-style-type: none;
+	margin: 2px 2px 2px 0px;
+	font-size: 20px;
+}
+.sidebar a {
+	text-decoration: none;
+	font-size: 17px;
+	color: #000000;
+	display: block;
+}
+/* Container class that looks like paper */
+.bodycontainer {
+	background-color: #FFFFFF;
+	margin: 125px 30px 20px 320px;
+	padding: 10px 70px 10px 60px;
+	box-shadow: 3px 3px 6px 1px gray, 3px 3px 5px 0px gray inset;
+}
+/* Container class for side notes */
+.notebox{
+	background-color: var(--blue_background);
+	border-style: double;
+	width: auto;
+	font-family: "Courier New", monospace;
+	font-size: 20px;
+	line-height: 1.5;
+	margin: 10px 0px;
+	padding: 5px 15px;
+}
+/* Container class for code segments */
+.code {
+	width: auto;
+	background-color: #000000;
+	color: #ffffff;
+	font-family: "Courier New", monospace;
+	font-size: 20px;
+	line-height: 2;
+	padding: 5px 15px;
+	box-shadow: 2px 1px 2px 1px gray, 1px 1px 2px 0px gray inset;
+}
+/* Format hyperlinks to black in headers/body */
+.hyperlink {
+	margin: 30px 5px 0px 5px;
+	color: black;
+}
+.hyperlink a:visited {
+	color: var(--black);
+}
+/* Classes to format pictures in Homework5 */
+.hw5_picture1 {
+	font-size: 15px;
+	font-style: italic;
+	float: left;
+	text-align: center;
+}
+.hw5_picture1 img {
+	max-width: 200px;
+	max-height: 200px;
+	box-shadow: 2px 1px 2px 1px gray, 1px 1px 2px 0px gray inset;
+	border-radius: 8px;
+}
+.hw5_picture2 {
+	font-size: 15px;
+	font-style: italic;
+	float: right;
+	text-align: right;
+}
+.hw5_picture2 img {
+	max-width: 200px;
+	max-height: 200px;
+	border-radius: 50%;
+	box-shadow: 2px 1px 2px 1px gray, 1px 1px 2px 0px gray inset;
+}
+/*Classes for footer*/
+.foot_container {
+	background-color: var(--white);
+	border: solid;
+	border-width:thin;
+	border-right: none;
+	border-color: lightgrey;
+	box-shadow: 2px 1px 2px 1px gray, 1px 1px 2px 0px gray inset;
+	margin: 10px 30px 0px 320px;
+	padding: 0px 20px;
+	font-size: 17px;
+}
+.foot_container p {
+	margin: 0px;
+	padding: 0px;
+}
+/* Classes for formating images inside a table for Homework6 */
+.table_container {
+	overflow: auto; /*Allow table to be scroll-able when browser
+	resizes*/
+	justify-content: center;
+	border: thin;
+	padding: 5px;
+}
+.table_container td {
+	border: thin solid;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 17px;
+	padding: 5px;
+}
+.table_container tr:nth-of-type(even){
+	background-color: var(--blue_background);
+}
+.table_container thead {
+	background-color: var(--black);
+	color: var(--blue_steel);
+}
+.table_container img {
+	max-width: 80px;
+	max-height: 80px;
+}
+/* Unit 4 CSS */
+.hw7_image_map {
+	text-align: center;
+}
+.hw7_image_map img {
+	height: 548px;
+	width: 954px;
+}
+#youtube_iframe {
+	width: 560px;
+	height: 315px;
+}
+#privateGPT_iframe {
+	width: 100%;
+	height: 1000px; /* Adjust the height based on your content above
+									 */
+	border: thin solid; /* Remove iframe border if needed */
+	padding: 7px;
+	margin: 0;
+}
+#cite {
+	width: 560px;
+	font-size: 14px;
+	margin: 0px;
+	line-height: 16px;
+}
+
+/* Week 5*/
+/* Classes for radio button formatting */
+.star-rating {
+	display: flex;
+	flex-direction: row; /* Display the radio buttons in a row */
+}
+
+.star-rating label {
+	display: block;
+	font-size: 15px;
+	margin-right: 25px;
+	margin-left: 5px;
+	margin-bottom: -30px; /* Reduce space below each label */
+	text-align: center;
+}
+
+#rating_default_format {
+	text-align: left;
+	font-size: 25px;
+	margin-left: 0px;
+}
+
+/* Week 6 */
+.table {display: table;}
+.row {display: table-row;}
+.row > * {display: table-cell;}
+.row > :first-child { 
+	text-align: right;
+	padding-right: 10px;
+}
+.formTable {
+	overflow: auto; /* Add scroll when the browser resizes */
+	justify-content: center;
+}
+.formTable table { width: 100%; } /* Sizes to 'bodycontainer'*/
+
+.formTable th,
+.formTable td {
+	border: thin solid;
+	padding: 8px; 
+	text-align: center;
+	line-height: 30px;
+}
+.formTable tr:nth-of-type(even) { background-color: var(--blue_background) }
+
+/* Week 7 */
+/* Table is formated the same as all of Week6 CSS */
+/***************************************************************************/
+
+.darkContainer {
+	background-color: var(--black); 
+	color: var(--blue_steel); 
+	padding: 20px 30px; 
+	text-align: center; /* Center the text inside the container */
+	margin: 0 auto; /* Center the container horizontally */
+	width: 500px;
+}
+
+/* Week 8 */
+#canvas {
+	background: var(--blue_background);
+}
+
+/* Style the buttons */
+.hw12 button {
+	display: block;
+	width: 350px;
+	margin: 1px;
+	padding: 10px;
+}
+
+.dark-container {
+	background-color: var(--black); 
+	color: var(--blue_steel); 
+	padding: 20px 30px; 
+	text-align: center; /* Center the text in container*/
+	margin: 0 auto; /* Center the container */
+	width: 1050px;
+	display: flex;
+	flex-direction: column; /* Fixed allignment of container */ 
+	align-items: center; /* Center form elements */
+}

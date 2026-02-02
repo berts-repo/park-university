@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Bert Darnell | 10/2/2023 | CS240 | Homework 11 -->
+<meta charset="utf-8" >
+<meta name="author" content="Bert Darnell">
+<meta name="keywords" content="AI, Artificial Intelligence, forms">
+<meta name="description" content="Implementation of web forms" >
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="NVIM v0.10.0-dev-750+g642586977">
+<title>Homework 11</title>
+<script>
+	var form;           // represents the entire input form
+	var table;          // tabulated apps - represents the table
+	var app = "";   // object representing one app 
+var apps = [
+    // Name, App Type, Category, Company, Fun Fact, Year Created, URL.
+    ["ChatGPT", "AI Chatbot", "Narrow or Weak AI", "OpenAI", "Free features", 2022, "chat.openai.com"], 
+    ["Siri", "Virtual Assistant", "Virtual Assistant", "Apple Inc.", "Siri's name is Norwegian, meaning 'beautiful woman who leads you to victory.'", 2011, "apple.com/siri/"],
+    ["TensorFlow", "Machine Learning Library", "Machine Learning", "Google LLC", "TensorFlow is used by major companies like Airbus and Twitter.", 2015, "tensorflow.org"],
+    ["IBM Watson", "Question Answering System", "AI-Powered Question Answering System", "IBM", "Watson won Jeopardy!", 2010, "ibm.com/watson"],
+    ["Amazon Alexa", "Virtual Assistant", "Virtual Assistant", "Amazon.com, Inc.", "Alexa can integrate with various smart home devices, allowing voice-controlled automation.", 2014, "amazon.com/alexa"],
+    ["DeepMind", "AI Research Lab", "Artificial Intelligence Research Lab", "Alphabet Inc. (Google)", "DeepMind's AlphaGo defeated world champion Go player Lee Sedol in 2016.", 2010, "deepmind.com"]
+];
+
+	// Formats the table to the initialized apps.
+	function initialize(){
+		form = document.getElementsByTagName("form") [0];
+		table = document.getElementById("description");
+		fillTable()
+	}
+	function validateForm() {
+		var elements = form.elements;
+		for (var i = 0; i < elements.length; i++) {
+			// Validates text input
+			if (elements[i].type === "text" && elements[i].value === "") {
+				alert("Please fill out all text fields.");
+				return false;
+			}
+		}
+		// Validate the dropdown category
+		if (appCategory === "Select a category") {
+			alert("Please select a category.");
+			return false;
+		}
+		return true;
+	}
+
+	function fillTable() {
+		var rows;     
+		rows = table.getElementsByTagName("tr"); 
+		//----- Sort the data 
+		dataSort(); 
+		//----- Delete the table    
+		for (let j=rows.length-1; j>0; j--) {
+			table.deleteRow(j);
+		} 
+		//----- Add the new rows  
+		for (let i=0; i<apps.length; i++) {
+			var row;   
+			row = table.insertRow(rows.length);          
+			row.setAttribute("onclick","new AIApplication(this)"); 
+			//----- Add the cells and data  
+			for (let j=0; j<apps[0].length; j++) {
+				row.insertCell(j).innerHTML = apps[i][j];     
+			}
+		}
+	}
+
+	// Javascript uses a MergeSort algorithm 
+	function dataSort() {  
+		//----- Reverse the order  
+		for (let i=0; i<apps.length; i++) { 
+			apps[i] = reverseAddress(apps[i]);  
+		} 
+		//----- Sort the array in ascending order - sorts based on the first column
+		apps.sort();      
+		//----- Reverse the order again.  
+		for (let i=0; i<apps.length; i++) {
+			apps[i] = reverseAddress(apps[i]);
+		}
+	} // end dataSort   
+	// ======================================================================================
+	// Reverses the order of the data list
+	// Used the parameter oneapp which represents the app name. 
+	function reverseAddress(oneapp) {
+		var temp = oneapp[0];       // Temp = Canvas = oneapp[0]
+		oneapp[0] = oneapp[1];  // FLIPS columns!!! Canvas=Construction
+		oneapp[1] = temp;           // Construction = Canvas
+		return oneapp;              // This returns entire row of data. 
+	} // end reverseAddress  
+
+	// Add another company (to array) and redisplay resorted table
+	function addApp() {  
+		let returnValue = validateForm();  
+		if (returnValue == false){
+			alert("Please fill out all the forms on the page");  
+		}
+		else {
+			apps.push(new Array(8));
+			for (let i=0; i<8; i++) {
+				apps[apps.length-1][i] = form.elements[i].value;
+			} 
+			//----- Clear, sort, and re-populate table  
+			fillTable();  
+			cancel();             // Clear just the form again! 
+		} // end add   
+	}
+	// Function to work the the update button
+	function updateApp() {
+		if (app !== "") {
+			let returnValue = validateForm();
+			if (returnValue == false) {
+				alert("Please fill out all the forms on the page");
+			} else {
+				app.replaceApp(); 
+			}
+		} else {
+			alert("Please select an application from the table to update.");
+		}
+	}
+	 // Clear the form - This is for the HTML web page 
+	function cancel() {
+		for (let i=0; i<8; i++) {
+			form.elements[i].value = "";
+		}
+		app = "";
+		alert("Form cleared");
+	}  
+
+	function resetForm() {  
+		form = document.getElementById("appForm");
+		form.reset(); 
+		app = "";
+	}
+</script>
+		<link rel="stylesheet" href="../css/homework.css">
+		<script src="../js/homework11.js"></script>
+</head>
+
+		<!-- Initialize the form table -->
+<body onload="initialize()">	
+	<!-- Side Bar -->
+<div class="sidebar">
+	<h4 id="pageSmall">Homework10</h4>
+	<ol>
+		<li>Overview
+			<ul>
+				<li><a href="homework1.html">What is AI?</a></li>
+				<li><a href="homework2.html">What is ML?</a></li>
+				<li><a href="homework7.html">Types of A.I.</a></li>
+				<li><a href="homework11.html">A.I. Application Form List</a></li>
+			</ul>
+		</li>
+
+		<li>Getting started with ML
+			<ul>
+				<li><a href="homework3.html">Installing CUDA</a></li>
+
+			</ul>
+		</li>
+		<li>Learning ML
+			<ul>
+				<li><a href="homework4.html">Simple CUDA Sample</a></li>
+				<li><a href="homework8.html">Install PrivateGPT</a></li>
+			</ul>
+		</li>
+
+		<li>Resources
+			<ul>
+				<li><a href="homework5.html">Links</a></li>
+			</ul>
+			<ul>
+				<li><a href="homework6.html">A.I. References</a></li>
+			</ul>
+		</li>
+	</ol>
+</div>
+
+<!-- Page Title -->
+<h1 id="page">Homework 11</h1>
+
+<!-- Navigation -->
+<ul class="nav"> 
+	<li><a href ="homework1.html">HOMEWORK1</a></li>
+	<li><a href ="homework2.html">HOMEWORK2</a></li>
+	<li><a href ="homework3.html">HOMEWORK3</a></li>
+	<li><a href ="homework4.html">HOMEWORK4</a></li>
+	<li><a href ="homework5.html">HOMEWORK5</a></li>
+	<li><a href ="homework6.html">HOMEWORK6</a></li>
+	<li><a href ="homework7.html">HOMEWORK7</a></li>
+	<li><a href ="homework8.html">HOMEWORK8</a></li>
+	<li><a href ="homework9.html">HOMEWORK9</a></li>
+	<li><a href ="homework10.html">HOMEWORK10</a></li>
+	<li><a href ="homework11.html">HOMEWORK11</a></li>
+</ul>
+
+<!-- Page content -->
+<div class="bodycontainer">
+<div class="darkContainer">
+	<h2>Form for AI Applications</h2>
+
+	<!-- CSS override to fit paragraph in darkContainer -->
+	<p class="notebox" style="line-height: 25px;">Fill out the form to add AI applications to the table.</p>
+
+	<!-- Web App form to add, update, remove, and cancel AI applications -->
+	<form id="appForm">
+		<div class="row">
+			<label for="appName">Application Name:</label>
+			<input type="text" id="appName" name="appName" required><br>
+		</div>
+
+		<!-- Dropdown form input field for application type -->
+		<div class="row">
+			<label for="appType">Application Type:</label>
+			<select id="appType" name="appType" required>
+				<option value="" disabled selected>Select an application type</option>
+				<option value="Web Application">Web Application</option>
+				<option value="Mobile Application">Mobile Application</option>
+				<option value="Desktop Application">Desktop Application</option>
+				<option value="Cloud-based Application">Cloud-based Application</option>
+			</select>
+		</div>
+
+		<!-- Dropdown menu -->
+		<div class="row">
+			<label for="appCategory">Category:</label>
+			<select id="appCategory" name="appCategory" required>
+				<!-- Both 'disabled' and 'selected' are treated as Boolean attributes -->
+				<option value="" disabled selected>Select a category</option> 
+				<option value="Narrow or Weak AI">Narrow or Weak AI</option>
+				<option value="General or Strong AI">General or Strong AI</option>
+				<option value="Machine Learning">Machine Learning</option>
+				<option value="Supervised Learning">Supervised Learning</option>
+				<option value="Unsupervised Learning">Unsupervised Learning</option>
+				<option value="Reinforcement Learning">Reinforcement Learning</option>
+				<option value="Natural Language Processing (NLP)">Natural Language Processing (NLP)</option>
+				<option value="Computer Vision">Computer Vision</option>
+				<option value="Robotics">Robotics</option>
+				<option value="Expert Systems">Expert Systems</option>
+			</select>
+		</div>
+
+
+
+		<!-- Text input fields -->
+		<div class="row">
+			<label for="company">Company:</label>
+			<input type="text" id="company" name="company" required><br>
+		</div>
+
+		<div class="row">
+			<label for="funFact">One Fun Fact:</label>
+			<input type="text" id="funFact" name="funFact" required><br>
+		</div>
+
+		<!-- Numeric input -->
+		<div class="row">
+			<label for="yearCreated">Year Created:</label>
+			<input type="number" id="yearCreated" name="yearCreated" min="2000" max="2030" required><br>
+		</div>
+
+
+		<div class="row">
+			<label for="shortURL">Short URL:</label>
+			<input type="text" id="shortURL" name="shortURL" required><br>
+		</div>
+
+		<!-- Buttons to edit web fors -->
+		<button type="button" onclick="addApp()">Add Application</button>
+		<button type="button" onclick="updateApp()">Update Application</button>
+		<!-- Browser couln't find instance without calling object directly -->
+		<button type="button" onclick="app.deleteApp()">Delete Application</button> 
+		<button type="button" onclick="cancel()">Cancel</button>
+	</form>
+
+	<p class="notebox">NOTE: you can click a row to load the applicatino into the web form</p>
+</div> <!-- End of darkContainer -->
+<br>
+
+	<!-- Display table form headers -->
+	<div class="formTable">
+		<table id="description">
+			<thead>
+				<tr>
+					<th>Application Name</th>
+					<th>Application Type</th>
+					<th>Software Category</th>
+					<th>Company</th>
+					<th>One Fun Fact</th>
+					<th>Year Created</th>
+					<th>Short URL</th>
+				</tr>
+			</thead>
+
+			<!-- Table rows will be added here -->
+			<tbody id="dataTable"></tbody>
+		</table>
+	</div> <!-- End of formTable -->
+
+
+</div> <!-- End of body container -->
+
+<script src="../js/homework.js"></script>
+
+<!-- Footer with congtanct informtion -->
+<footer class="foot_container"> 
+	<p>Email the author: Bert Darnell at <a href="Bert.Darnell@park.edu">bert.darnell@park.edu</a></p>
+	<p><address>University: park.edu, 8700 NW River Park Dr, Parkville, MO 64152, USA<br> 
+	</address>
+	<p><a href="privacy.html">Privacy Policy</a> |
+	<a href="contact.html">Contact Us Form </a>  |
+	<a href="terms.html">Terms of Use</a>
+	</p> 
+</footer>
+				</body>
+
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Bert Darnell | 8/26/2023 | CS240 | Homework 3 -->
+	<meta charset="utf-8" >
+	<meta name="author" content="Bert Darnell">
+	<meta name="keywords" content="AI, Artificial Intelligence, Machine Learning, CUDA">
+	<meta name="description" content="This web page is for installing CUDA on WSL2" >
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="generator" content="NVIM v0.10.0-dev-750+g642586977">
+	<title>Homework 3</title>
+
+<style>
+/* Global style rules for the body */
+body {
+	font-family: Arial, sans-serif;
+	background-color: #F0F8FF;
+	line-height: 3;
+	font-size: 25px;
+}
+ul {
+	line-height: 2;
+	font-size: 20px;
+	list-style-type: square;
+}
+pre {
+	white-space: pre-wrap; /* Fixed sizing issues for the the code snippet container */
+}
+
+/* ID selectors */
+#page {
+	padding: 0px 50px 0px;
+	margin: 0px;
+	font-family: "Lucida Handwriting", cursive;
+	font-variant: small-caps;
+}
+#title {
+	margin: 25px 50px 50px;
+	font-family: "Monaco", monospace;
+	text-align: center;
+	font-size: 40px;
+}
+
+/* Navigation bar style */
+.nav { 
+	background-color: #F0F8FF;
+	list-style-type: none;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+.nav li {
+	display: inline-block; /* Horizontal navigation bar */
+	font-size: 15px;
+}
+.nav a {
+	text-decoration: none; /* Removces underline for hyperlink */
+}
+
+/* Container class that looks like paper */
+.bodycontainer {
+	background-color: #FFFFFF;
+	margin: 50px;
+	padding: 10px 70px 10px 60px;
+	box-shadow: 3px 3px 6px 1px gray, 3px 3px 5px 0px gray inset;
+}
+
+/* Container class for side notes */
+.notebox{
+	background-color: #F0F8FF;
+	border-style: double;
+	width: auto;
+	font-family: "Courier New", monospace;
+	font-size: 20px;
+	line-height: 1.5;
+	margin: 10px 0px;
+	padding: 5px 15px;
+}
+
+/* Container class for code segments */
+.code {
+	width: auto;
+	background-color: #000000;
+	color: #ffffff;
+	font-family: "Courier New", monospace;
+	font-size: 20px;
+	line-height: 2;
+	padding: 5px 15px;
+	box-shadow: 2px 1px 2px 1px gray, 1px 1px 2px 0px gray inset;
+}
+
+</style>
+
+</head>
+<body>
+	<!-- Navigation -->
+	<ul class="nav"> 
+	<li><a href ="homework1.html">| HOMEWORK1 |</a></li>
+	<li><a href ="homework2.html">HOMEWORK2 |</a></li>
+	<li><a href ="homework3.html">HOMEWORK3 |</a></li>
+	<li><a href ="homework4.html">HOMEWORK4 |</a></li>
+	</ul>
+
+	<!-- Page Title -->
+	<h1 id="page">Homework 3</h1>
+	<hr>
+
+	<!-- Page content -->
+	<div class="bodycontainer">
+	
+		<h1 id="title">Installing CUDA for WSL2 GPU Acceleration</h1>
+		<!--cite="https://docs.nvidia.com/cuda/wsl-user-guide/index.html#getting-started-with-cuda-on-wsl"-->
+		<ol>
+			<!-- Step 1 -->
+			<li>Install NVIDIA Graphics Drivers
+				<ul>
+					<li><a href ="https://www.nvidia.com/Download/index.aspx?lang=en-us">Download CUDA enabled drivers</a> 
+					<p class="notebox">NOTE: make sure driver is compatable with CUDA</p></li>
+				</ul></li>
+			
+			<!-- Step 2 -->
+			<li>Install WSL 2
+			<ul>
+				<li>Launch Windows Terminal, Command Prompt, or Powershell and install WSL
+					<pre class="code">wsl.exe --install</pre></li>
+				<li>Install Linux Distrobution of your choice from the Microsoft Store or with this Terminal command to list the available distros
+					<pre class="code">wsl --list --online</pre>
+				<li>Install a specified distrobution
+					<pre class="code">wsl --install -d &lt;distrobution name&gt;</pre>
+					<aside class="notebox">NOTE: ensure that your using a glibc-based distribution (e.g. Debian and Ubuntu) with a kernel version of 5.10.43.3 or higher</aside></li>
+			</ul></li>
+
+			<!-- Step 3 -->
+			<li>Install CUDA on WSL 2
+			<ul>
+
+				<li>Start the new distrobution
+					<pre class="code">wsl -d &lt;distrobution name&gt;</pre></li>
+				<li>Update repositories
+					<pre class="code">sudo apt update</pre></li>
+				<li>Remove old GPG key
+					<pre class="code">sudo apt-key del 7fa2af80</pre></li>
+				<li>Install CUDA Toolkit
+					<!-- cite="https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=WSL-Ubuntu&target_version=2.0&target_type=deb_local" -->
+					<pre class="code">wget https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/cuda-wsl-ubuntu.pin
+sudo mv cuda-wsl-ubuntu.pin /etc/apt/preferences.d/cuda-repository-pin-600
+wget https://developer.download.nvidia.com/compute/cuda/12.2.1/local_installers/cuda-repo-wsl-ubuntu-12-2-local_12.2.1-1_amd64.deb
+sudo dpkg -i cuda-repo-wsl-ubuntu-12-2-local_12.2.1-1_amd64.deb
+sudo cp /var/cuda-repo-wsl-ubuntu-12-2-local/cuda-*-keyring.gpg /usr/share/keyrings/
+sudo apt-get update
+sudo apt-get -y install cuda"</pre></li>
+				<li>Verify that CUDA is installed
+					<pre class="code">nvidia-smi</pre></li>
+			</ul></li>
+
+					
+		</ol>
+
+
+	</div>
+</body>
+</html>

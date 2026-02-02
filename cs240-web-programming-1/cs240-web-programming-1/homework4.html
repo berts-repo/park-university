@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Bert Darnell | 8/26/2023 | CS240 | Homework 4 -->
+	<meta charset="utf-8" >
+	<meta name="author" content="Bert Darnell">
+	<meta name="keywords" content="AI, Artificial Intelligence, Machine Learning, CUDA">
+	<meta name="description" content="This web page is for installing CUDA on WSL2" >
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="generator" content="NVIM v0.10.0-dev-750+g642586977">
+	<title>Homework 4</title>
+
+	<link rel="stylesheet" href="../css/homework.css">
+
+</head>
+	<body>	
+		<!-- Side Bar -->
+		<div class="sidebar">
+			<h4 id="pageSmall">Homework4</h4>
+			<ol>
+				<li>Overview
+					<ul>
+						<li><a href="homework1.html">What is AI?</a></li>
+						<li><a href="homework2.html">What is ML?</a></li>
+					</ul>
+				</li>
+
+				<li>Getting started with ML
+					<ul>
+						<li><a href="homework3.html">Installing CUDA</a></li>
+
+					</ul>
+				</li>
+				<li>Learning ML
+					<ul>
+						<li><a href="homework4.html">Simple CUDA sample</a></li>
+					</ul>
+				</li>
+
+			</ol>
+		</div>
+
+		<!-- Page Title -->
+	<h1 id="page">Homework 4</h1>
+
+	<!-- Navigation -->
+	<ul class="nav"> 
+	<li><a href ="homework1.html">| HOMEWORK1 |</a></li>
+	<li><a href ="homework2.html">HOMEWORK2 |</a></li>
+	<li><a href ="homework3.html">HOMEWORK3 |</a></li>
+	<li><a href ="homework4.html">HOMEWORK4 |</a></li>
+	</ul>
+
+	<!-- Page content -->
+	<div class="bodycontainer">
+	
+		<h1 id="title">Simple CUDA Sample</h1>
+		<blockquote cite="https://ubuntu.com/tutorials/enabling-gpu-acceleration-on-ubuntu-on-wsl2-with-the-nvidia-cuda-platform#4-compile-a-sample-application">
+			There is open-source cuda-samples repository maintained by NVIDIA on github. Their toolkit has one of the simplest ways to validate the CUDA installation. If you need to install CUDA <a href="homework3.html">click here</a>, otherwise here is instructions for a sample application.</blockquote>
+		<ol>
+			<li>First make a directory for building the project
+				<ul>
+					<li>First we will create and move into the directory to install (make) CUDA on
+						<pre class="code">mkdir ~/Dev</pre>
+					</li>
+					<li>Navigate into the directory
+						<pre class="code">cd ~/Dev</pre>
+					</li>
+				</ul>
+			
+			<li>Next we will clone the repository
+				<ul>
+					<li>Download samples from GitHub
+						<pre class="code">git clone https://github.com/nvidia/cuda-samples</pre>
+						<p class="notebox">NOTE: Propper depedencies for <em>make</em> and <em>git</em> might be needed</p>
+					</li>
+				</ul>
+
+			<li>Next we will build the application by 'make'
+				<ul>
+					<li>First we will move into one of the Samples directories
+						<pre class="code">cd ~/Dev/cuda-samples/Samples/1_Utilities/deviceQuery</pre>
+					</li>
+					<li>Next we will build with make
+						<pre class="code"> class="code">make</pre>
+					</li>
+					<li>Once complete, run the application
+						<pre class="code">./deviceQuery</pre>
+					</li>
+				</ul>
+			<li>Enjoy enabled GPU acceleration on Ubuntu on WSL2 with the NVIDIA CUDA Platform
+			</li>
+		</ol>
+	</div>
+</body>
+</html>

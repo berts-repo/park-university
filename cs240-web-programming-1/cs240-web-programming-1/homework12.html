@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Bert Darnell | 10/10/2023 | CS240 | Homework 12 -->
+<meta charset="utf-8" >
+<meta name="author" content="Bert Darnell">
+<meta name="keywords" content="AI, Artificial Intelligence, forms, canvas">
+<meta name="description" content="Implementation of web forms and canvas" >
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="NVIM v0.10.0-dev-750+g642586977">
+<title>Homework 12</title>
+
+<link rel="stylesheet" href="../css/homework.css">
+<script src="../js/homework.js"></script>
+
+</head>
+
+<body>	
+	<!-- Side Bar -->
+<div class="sidebar">
+	<h4 id="pageSmall">Homework12</h4>
+	<ol>
+		<li>Overview
+			<ul>
+				<li><a href="homework1.html">What is AI?</a></li>
+				<li><a href="homework2.html">What is ML?</a></li>
+				<li><a href="homework7.html">Types of A.I.</a></li>
+				<li><a href="homework11.html">A.I. Application Form List</a></li>
+			</ul>
+		</li>
+
+		<li>Getting started with ML
+			<ul>
+				<li><a href="homework3.html">Installing CUDA</a></li>
+
+			</ul>
+		</li>
+		<li>Learning ML
+			<ul>
+				<li><a href="homework4.html">Simple CUDA Sample</a></li>
+				<li><a href="homework8.html">Install PrivateGPT</a></li>
+			</ul>
+		</li>
+
+		<li>Resources
+			<ul>
+				<li><a href="homework5.html">Links</a></li>
+			</ul>
+			<ul>
+				<li><a href="homework6.html">A.I. References</a></li>
+			</ul>
+		</li>
+	</ol>
+</div>
+
+<!-- Page Title -->
+<h1 id="page">Homework 12</h1>
+
+<!-- Navigation -->
+<ul class="nav"> 
+	<li><a href ="homework1.html">HOMEWORK1</a></li>
+	<li><a href ="homework2.html">HOMEWORK2</a></li>
+	<li><a href ="homework3.html">HOMEWORK3</a></li>
+	<li><a href ="homework4.html">HOMEWORK4</a></li>
+	<li><a href ="homework5.html">HOMEWORK5</a></li>
+	<li><a href ="homework6.html">HOMEWORK6</a></li>
+	<li><a href ="homework7.html">HOMEWORK7</a></li>
+	<li><a href ="homework8.html">HOMEWORK8</a></li>
+	<li><a href ="homework9.html">HOMEWORK9</a></li>
+	<li><a href ="homework10.html">HOMEWORK10</a></li>
+	<li><a href ="homework11.html">HOMEWORK11</a></li>
+	<li><a href ="homework11.html">HOMEWORK12</a></li>
+</ul>
+
+<!-- Page content -->
+<div class="bodycontainer">
+<div class="dark-container">
+	<h2>Form for Canvas and Images</h2>
+	<form id="myForm">
+		<div class="row">
+			<label for="message">Message:</label>
+			<input type="text" id="message" name="message" required><br>
+		</div>
+		<div class="row">
+			<label for="date">Date:</label>
+			<input type="date" id="date" name="date" required><br>
+		</div>
+		<div class="row">
+			<label for="color">Color:</label>
+			<input type="color" id="color" name="color" required><br>
+		</div>
+		<div class="row">
+			<label for="image">Select Image:</label>
+			<select id="image" name="image" required>
+				<!-- Options for images -->
+				<option value="../images/hw12_pic1.png">Image 1</option>
+				<option value="../images/hw12_pic2.png">Image 2</option>
+				<option value="../images/hw12_pic3.png">Image 3</option>
+				<option value="../images/hw12_pic4.png">Image 4</option>
+			</select><br>
+		</div>
+		<div class="hw12">
+		<button type="button" onclick="hw12_submitForm()">Submit</button>
+		<button type="button" onclick="hw12_clearCanvas()">Reset</button>
+		</div>
+	</form>
+	<br>
+	<canvas id="canvas" width="1000px" height="500px"></canvas>
+</div> <!-- End of dark-container-->
+</div> <!-- End of body container -->
+
+
+<!-- Footer with congtanct informtion -->
+<footer class="foot_container"> 
+	<p>Email the author: Bert Darnell at <a href="Bert.Darnell@park.edu">bert.darnell@park.edu</a></p>
+	<p><address>University: park.edu, 8700 NW River Park Dr, Parkville, MO 64152, USA<br> 
+	</address>
+	<p><a href="privacy.html">Privacy Policy</a> |
+	<a href="contact.html">Contact Us Form </a>  |
+	<a href="terms.html">Terms of Use</a>
+	</p> 
+</footer>
+</body>
+</html>
