@@ -1,0 +1,61 @@
+INSERT INTO department (DepartmentID, Name, AisleStart, AisleEnd, RowStart, RowEnd) VALUES
+('REG', 'Registers', 0, 1, 1, 25),
+('TLS', 'Tools', 1, 2, 1, 99),
+('HDW', 'Hardware', 2, 3, 1, 99),
+('PNT', 'Paint', 3, 4, 1, 99),
+('PLM', 'Plumbing', 4, 5, 1, 99),
+('ELC', 'Electrical', 5, 6, 1, 99),
+('GRD', 'Gardening & Outdoors', 6, 7, 1, 99),
+('BLD', 'Building Materials', 7, 8, 1, 99),
+('MIX', 'Multiple Departments', 100, 999, 1, 9999);
+
+INSERT INTO employee (EmployeeID, FirstName, LastName, Position, Phone, Address, City, State, Wage) VALUES
+('EMP0001', 'Eustace', 'Bagge', 'Owner', '111-222-3333', 'Address1', 'City1', 'KS', NULL),
+('EMP0002', 'Muriel', 'Bagge', 'Owner', '111-222-3333', 'Address1', 'City1', 'KS', NULL),
+('EMP0003', 'Courage', 'Dog', 'Security', '111-222-3333', 'Address1', 'City1', 'KS', 15.00),
+('EMP0004', 'Goofy', NULL, 'Manager', '333-444-5555', 'Address3', 'City3', 'PA', 15.00),
+('EMP0006', 'Scooby', 'Doo', 'Associate', '555-567-8901', '123 Mystery Lane', 'Coolsville', 'PA', 12.00),
+('EMP0007', 'Shaggy', 'Rogers', 'Associate', '555-678-9012', '456 Haunted Hollow', 'Coolsville', 'PA', 12.00),
+('EMP0008', 'Fred', 'Jones', 'Associate', '555-789-0123', '789 Trap Street', 'Coolsville', 'PA', 12.50),
+('EMP0009', 'Velma', 'Dinkley', 'Cashier', '555-890-1234', '321 Brainy Boulevard', 'Coolsville', 'PA', 16.00),
+('EMP0005', 'Daphne', 'Blake', 'Cashier', '555-123-4567', '124 Fashion Avenue', 'Coolsville', 'PA', 12.00);
+
+INSERT INTO product (ProductID, Location, Name, Description, Price, Quantity) VALUES
+('PID0001', 'LOC1001', 'Hammer', 'Used to smash things', 30.99, 6),
+('PID0002', 'LOC1002', 'Screwdriver', 'Used to screw things', 15.99, 10),
+('PID0003', 'LOC1003', 'Level', '3ft level', 20.99, 5),
+('PID0004', 'LOC1003', 'Drill', '3/4 impact drill', 120.99, 3),
+('PID0005', 'LOC2001', 'Nails', 'Carpenter nails', 12.99, 12),
+('PID0006', 'LOC2002', 'Screws', 'Drywall screws', 16.99, 12),
+('PID0007', 'LOC3003', 'Primer', 'Paint primer', 30.99, 4),
+('PID0008', 'LOC3004', 'Paint', 'White paint', 30.99, 4),
+('PID0009', 'LOC4001', 'SharkBite', '1/2 to 1/4 adapter', 14.99, 6),
+('PID0010', 'LOC4002', 'Fitting', '10ft 1/4 copper roll', 70.99, 2),
+('PID0011', 'LOC5001', 'FuseBox', '8 breaker box', 41.99, 1),
+('PID0012', 'LOC6002', 'Lightbult', '1200 lumens', 6.99, 10),
+('PID0013', 'LOC6001', 'Shovel', 'Wedge shovel', 30.99, 3),
+('PID0014', 'LOC6001', 'Hose', '20ft garden hose', 35.99, 2),
+('PID0015', 'LOC7001', 'Concrete', 'Gravel concrete', 15.99, 4),
+('PID0016', 'LOC7001', 'Ladder', '10ft ladder', 99.00, 1),
+('PID0017', 'LOC0001', 'Gum', 'Bubble tape', 2.99, 5),
+('PID0018', 'LOC0002', 'Soda', 'Surge', 1.99, 12);
+('PID0019', 'LOC1003', 'Saw', 'Wood saw', 20.99, 2),
+('PID0020', 'LOC1004', 'Saw blade' '3/4 16in saw blade', 35.99, 3);
+
+
+
+
+
+
+
+
+
+INSERT INTO works (EmployeeID, DepartmentID, Date) VALUES
+(EMP0001, MIX, 2000-1-1),
+(EMP002, REG, 2000-1-1),
+(EMP0003, MIX, 2000-1-1),
+(EMP0004, MIX, 2000-1-1),
+(EMP0001, MIX, 2000-1-2),
+(EMP002, REG, 2000-1-2),
+(EMP0007, TLS, 2000-1-2),
+(EMP0004, MIX, 2000-1-2);

@@ -1,0 +1,60 @@
+Activities
+
+Students must make their Class Project Part 1 submissions by the end of this unit, Sunday, Unit 3, at midnight (24:00 pm) CST. A reminder of the narrative for this class project is given below.
+
+Remember to present:
+
+    A written description in English of the aspects of the business that the student’s project is addressing and the rules that are going to be described by the ERD.
+    An ERD for the student’s project.
+    A translation of the presented ERD into a relational database model.
+
+All submissions must be written and drawn professionally and can be created using Microsoft Word, Excel, or Powerpoint. PDF files are also welcomed. No other file type will be accepted.
+
+Submissions will be graded during Unit 4 and returned to students so that they can proceed with requested modifications to be implemented for Class Project –Part 2 (due at the end of Unit 5).
+Unit Learning Outcomes Reflected In Assignment
+
+    Formulate basic SQL queries to a relational database management system (CLO2).
+
+Unit 2 – Class Project Part 1 – Description  (Reminder)
+
+Objective
+
+The purpose of the first part of the class project is to design a database for a business, chosen by students, using the principles of relational database design. Students will create an ERD and a relational database model for their project.
+
+Guidelines
+
+In the first unit of classes, students selected (or were assigned) one title for their class project. All titles for projects corresponded to generic names for small/local businesses. In this part 1 of the class project, students must describe their projects and draw an Entity Relationship Diagram (ERD) that represents some aspects of their assigned business. There is no direct description provided for any of the businesses. Students must come up with their own written descriptions of some aspects of the business and translate these descriptions into an ERD.
+
+Even though no description is given for the businesses, all of them share a common set of areas that can be used to describe most businesses. Namely, all businesses must deal with clients or customers, suppliers or providers of services, products or services produced by the businesses, processes or operations, capital resources (like machinery, equipment, installations, offices, buildings, etc.), personnel of many kinds (part-time, full time, contractors) organized in departments of different kinds. Students may select one or more of these areas and/or others that they consider relevant for their business. These areas should be described in written English and produce an ERD with entities, attributes, and relationships between these entities, under the following requirements:
+
+    The ERD must include at least 6 strong entities describing some areas of the business. Strong entities do not require other entities to be represented, but they rely on their attributes to define them. Each of these strong entities must have an identifying attribute. They also must have at least other 4 attributes of any kind, except multivalued attributes. If you want to have a multivalued attribute it should be represented as a relationship with another table.
+
+    The ERD must include at least 4 associative entities. These entities represent relationships between various other entities in the diagram. The identifying attribute for each associative entity should be the composite of all the identifying attributes of the other entities associated with the associative entity. Alternatively, the identifying attribute could be a surrogate key. Each associative entity should also have at least one additional attribute describing the relationship.
+
+    All entities should be connected. This means that one can navigate from any entity to any other entity in the diagram by traversing the relationships between them.
+
+Once an ERD is completed it must be translated into a relational database model with the following requirements:
+
+    All entities (including strong and associative) are represented by tables with the same name as their original entity and columns for all attribute names. Every table has a primary key that is underlined by a solid line.
+
+    All tables are connected with primary key-foreign key links. This means that one can navigate from any table to any other table in the relational database model by traversing these primary key-foreign key links between them. Foreign keys that are not also primary keys themselves should be underlined with a segmented line.
+
+Deliverables
+
+Every submission must include three things:
+
+    A written description in English of the aspects of the business that the student’s project is addressing and the rules that are going to be described by the ERD.
+    An ERD for the student’s project.
+    A translation of the presented ERD into a relational database model.
+
+All submissions must be written and drawn professionally and can be created using Microsoft Word, Excel, or Powerpoint. PDF files are also welcomed. No other file type will be accepted.
+
+An example of what is expected is given in Unit 02 - Assignment 02. This assignment shows a description in English, an ERD, and a relational database model for a small airline company.
+
+Deadline
+
+Students have two weeks to prepare and submit their work for this project. (Unit 2 and Unit 3). Submissions are due on Sunday, Unit 3, at midnight (24:00 pm) CST.
+
+Questions
+
+Students may use this discussion thread to share ideas and ask questions about the project. Please share ideas and not the actual projects.

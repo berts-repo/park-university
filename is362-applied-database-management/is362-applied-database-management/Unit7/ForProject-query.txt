@@ -1,0 +1,29 @@
+ForProject
+
+
+# Fetches who and where an employee is working on January 1st, 2000
+SELECT 
+    employee.Name AS employee_working,
+    department.Name AS department_worked,
+    works.*   
+FROM works
+JOIN department ON works.DepartmentID = department.DepartmentID
+JOIN employee ON works.Employee = employee.EmployeeID
+WHERE DATE(works.DateTime) = '2000-01-01';
+
+SELECT supply.SupplyID, supply.SupplierID, supplier.Name, supply.RecievedDate
+FROM supply
+JOIN product ON supply.SupplyID = product.Supply
+JOIN supplier ON supply.SupplierID = supplier.SupplierID
+WHERE supplier.Name = 'Vendor2'
+ORDER BY supply.RecievedDate ASC, supply.SupplyID ASC;
+
+SELECT purchase.*, transaction.*, customer.Name
+FROM purchase
+JOIN transaction ON purchase.TransactionID = transaction.TransactionID
+JOIN customer ON purchase.CustomerID = customer.CustomerID;
+
+
+
+
+

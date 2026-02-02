@@ -1,0 +1,258 @@
+//Open MariaDB client
+1. mysql - u root -p        
+
+// Create database
+2. create database ForAssign04;
+
+// Make ForAssign05 the default database
+3. use ForAssign05                     
+
+/////////// CREATING TABLES ////////////////////////
+// Creates Client table
+1. 
+   create table Client      
+      ( 
+        ClientID VARCHAR(7),
+        Name TEXT, 
+        LegalAddress TEXT,
+        Phone TEXT,
+        PRIMARY KEY (ClientID)
+      ) ;
+
+// Creates Vehicle table
+2. 
+   create table Vehicle      
+      ( 
+        NumberPlate VARCHAR(5),
+        Make TEXT, 
+        Model TEXT, 
+        Year INT,
+        Weight FLOAT,
+        VolumeCapacity FLOAT,
+        MaxWeightLoad FLOAT,
+        PRIMARY KEY (NumberPlate)
+      ) ;
+
+// Creates Driver table
+3. 
+   create table Driver
+      ( 
+        DocumentID VARCHAR(7) PRIMARY KEY,
+        FirstName TEXT, 
+        Initials TEXT, 
+        LastName TEXT,
+        BasicSalary FLOAT,
+        CommissionPerTrip FLOAT
+      ) ;
+
+// Creates Contract table
+4. 
+   create table Contract
+      ( 
+        ContractNo VARCHAR(7) PRIMARY KEY,
+        ClientID VARCHAR(7),
+        IsLongTerm BOOLEAN
+      ) ;
+
+// Creates LongTermContract table
+5. 
+   create table LongTermContract
+      ( 
+        ContractNo VARCHAR(7) PRIMARY KEY,
+        PricePerMile FLOAT,
+        InsurancePerPound FLOAT,
+        DateSigned DATETIME
+      ) ;
+
+// Creates ShortTermContract table
+6. 
+   create table ShortTermContract
+      ( 
+        ContractNo VARCHAR(7) PRIMARY KEY,
+        Origin TEXT,
+        Destination TEXT,
+        Price FLOAT,
+        InsuranceValue FLOAT,
+        DateSigned DATETIME,
+        VehicleAssigned VARCHAR(5),
+        DriverAssigned VARCHAR(7),
+        DeliveryStamp DATETIME
+      ) ;
+
+// Creates Trip table
+7. 
+   create table Trip      
+      ( 
+        TripNo INT AUTO_INCREMENT PRIMARY KEY,
+        ContractNo VARCHAR(7),
+        Origin TEXT,
+        Destination TEXT,
+        Distance FLOAT,
+        Weight FLOAT,
+        DepartureDate DATETIME,
+        VehicleAssigned VARCHAR(5),
+        DriverAssigned VARCHAR(7),
+        DeliveryStamp DATETIME
+      ) ;
+
+/////////// CREATING RELATIONS ////////////////////////
+1. alter table Contract
+        ADD CONSTRAINT FK_Contract_to_Client
+                FOREIGN KEY (ClientID) REFERENCES Client(ClientID)
+                ON DELETE RESTRICT
+;                
+
+2. alter table LongTermContract
+        ADD CONSTRAINT FK_LongTermContract_to_Contract
+                FOREIGN KEY (ContractNo) REFERENCES Contract(ContractNo)
+                ON DELETE RESTRICT
+                ON UPDATE RESTRICT
+;                
+
+3. alter table ShortTermContract
+        ADD CONSTRAINT FK_ShortTermContract_to_Contract
+                FOREIGN KEY (ContractNo) REFERENCES Contract(ContractNo)
+                ON DELETE RESTRICT
+                ON UPDATE RESTRICT,
+        ADD CONSTRAINT FK_ShortTermContract_to_Vehicle
+                FOREIGN KEY (VehicleAssigned) REFERENCES Vehicle(NumberPlate)
+                ON DELETE RESTRICT
+                ON UPDATE RESTRICT,
+        ADD CONSTRAINT FK_ShortTermContract_to_Driver
+                FOREIGN KEY (DriverAssigned) REFERENCES Driver(DocumentID)
+                ON DELETE RESTRICT
+                ON UPDATE RESTRICT
+;                
+
+4. alter table Trip
+        ADD CONSTRAINT FK_Trip_to_LongTermContract
+                FOREIGN KEY (ContractNo) REFERENCES LongTermContract(ContractNo)
+                ON DELETE RESTRICT
+                ON UPDATE RESTRICT,
+        ADD CONSTRAINT FK_Trip_to_Vehicle
+                FOREIGN KEY (VehicleAssigned) REFERENCES Vehicle(NumberPlate)
+                ON DELETE RESTRICT
+                ON UPDATE RESTRICT,
+        ADD CONSTRAINT FK_Trip_to_Driver
+                FOREIGN KEY (DriverAssigned) REFERENCES Driver(DocumentID)
+                ON DELETE RESTRICT
+                ON UPDATE RESTRICT
+;                
+
+/////////// INSERTING DATA ////////////////////////
+
+// Add 10 records to Client table
+1. 
+   insert into Client values ("933256Q", "Jerry Seinfeld", "PO Box 12221 Delaware 19702", "555-555-0001");
+   insert into Client values ("278544C", "Chris Rock", "PO Box 354 Delaware 19703", "555-555-0002");
+   insert into Client values ("765256P", "Eddie Murphee", "PO Box 4287 Delaware 19703", "555-555-0003");
+   insert into Client values ("736533Q", "Jay Leno", "PO Box 216 Delaware 19702", "555-555-0004");
+   insert into Client values ("865263C", "Wanda Sykes", "PO Box 56944 Delaware 19706", "555-555-0005");
+   insert into Client values ("842471P", "Whopie Goldberg", "PO Box 884 Delaware 19706", "555-555-0006");
+   insert into Client values ("156836P", "Joy Behar", "PO Box 687 Delaware 19706", "555-555-0007");
+   insert into Client values ("145696S", "Sarah Silverston", "PO Box 4622 Delaware 19707", "555-555-0008");
+   insert into Client values ("394204C", "Conan Brian", "PO Box 34344 Delaware 19707", "555-555-0009");
+   insert into Client values ("472507P", "Charles Chaplin", "PO Box 9587 Delaware 19707", "555-555-0010");
+
+// Add 10 records to Vehicle table
+2. 
+   insert into Vehicle values ("AB931", "BMW", "SE1000", 2014, 2000.0, 12500.0, 3000.0);
+   insert into Vehicle values ("AC872", "Volvo", "RE5050", 2014, 2000.0, 15000.0, 3500.0);
+   insert into Vehicle values ("AD464", "GM", "SC100", 2015, 3000.0, 22500.0, 5000.0);
+   insert into Vehicle values ("AE653", "Toyota", "TR007", 2016, 3500.0, 30000.0, 4500.0);
+   insert into Vehicle values ("AF742", "Hyundai", "M077", 2016, 4000.0, 30000.0, 5000.0);
+   insert into Vehicle values ("CA871", "BMW", "SE2000", 2015, 4000.0, 20000.0, 6000.0);
+   insert into Vehicle values ("DA466", "Volvo", "RE7050", 2016, 2000.0, 17500.0, 4000.0);
+   insert into Vehicle values ("EA657", "GM", "SC100", 2016, 4000.0, 32500.0, 6000.0);
+   insert into Vehicle values ("FA748", "Toyota", "TR100", 2017, 3500.0, 40000.0, 6000.0);
+   insert into Vehicle values ("GA744", "Hyundai", "M077", 2017, 4000.0, 40000.0, 5500.0);
+
+// Add 10 records to Driver table
+3. 
+   insert into Driver values ("787923C", "Luciano", "J", "Pavarotti",120000.00, 1.0); 
+   insert into Driver values ("933256Q", "Maria", "F", "Callas", 130000.00, 1.5);
+   insert into Driver values ("278544C", "Luis", "A", "Alva", 110000.00, 1.0);
+   insert into Driver values ("765256P", "Kiri", "T", "Kanawa",120000.00, 2.0);
+   insert into Driver values ("736533Q", "Andrea", "C", "Boccelli",120000.00, 1.3);
+   insert into Driver values ("865263C", "Maria", "A", "De los Angeles",120000.00, 1.5);
+   insert into Driver values ("842471P", "Placido", "S", "Domingo",120000.00, 1.0);
+   insert into Driver values ("156836P", "Anna", "D", "Netrebko",120000.00, 2.0);
+   insert into Driver values ("145696S", "Enrico", "M", "Caruso",120000.00, 1.5);
+   insert into Driver values ("394204C", "Renee", "H", "Fleming",120000.00, 1.8);
+
+// Add 10 records to Contract table
+4. 
+   insert into Contract values ("CO0011", "278544C", TRUE); 
+   insert into Contract values ("CO0013", "736533Q", TRUE); 
+   insert into Contract values ("CO0014", "865263C", TRUE); 
+   insert into Contract values ("CO0016", "156836P", TRUE); 
+   insert into Contract values ("CO0018", "394204C", TRUE); 
+   insert into Contract values ("CO0010", "933256Q", FALSE); 
+   insert into Contract values ("CO0012", "765256P", FALSE); 
+   insert into Contract values ("CO0015", "842471P", FALSE); 
+   insert into Contract values ("CO0017", "145696S", FALSE); 
+   insert into Contract values ("CO0019", "472507P", FALSE); 
+
+// Add 5 records to LongTermContract table
+5. 
+   insert into LongTermContract values ("CO0011", 5.0, 2.0, "2017-05-10 11:30:00"); 
+   insert into LongTermContract values ("CO0013", 5.5, 2.0, "2017-04-24 14:23:00");
+   insert into LongTermContract values ("CO0014", 7.0, 2.2, "2017-05-30 09:25:00");
+   insert into LongTermContract values ("CO0016", 6.5, 1.8, "2017-03-29 13:45:00");
+   insert into LongTermContract values ("CO0018", 4.5, 2.5, "2017-04-20 15:36:00");
+
+// Add 5 records to ShortTermContract table
+6. 
+   insert into ShortTermContract values ("CO0010", "Boston, Massachusets", "Jackson, Mississippi", 3000.0, 10000.0, "2017-07-06 14:30:00", "GA744", "787923C", "2017-07-16 11:05:00"); 
+   insert into ShortTermContract values ("CO0012", "Austin, Texas", "Memphis, Tennessee", 1000.0, 13000.0, "2017-07-07 09:30:00", "AB931", "933256Q", "2017-07-07 16:18:00");
+   insert into ShortTermContract values ("CO0015", "Los Angeles, California", "Santa Fe, New Mexico", 2000.0, 25000.0, "2017-07-08 10:20:00", "AC872", "278544C", "2017-07-09 17:20:00");
+   insert into ShortTermContract values ("CO0017", "Seattle, Washington", "Portland, Oregon", 1500.0, 18000.0, "2017-07-09 10:45:00", "AD464", "765256P", "2017-07-11 12:45:00");
+   insert into ShortTermContract values ("CO0019", "New Orleans, Louisiana", "Las Vegas, Nevada", 5000.0, 25000.0, "2017-07-10 16:23:00", "FA748", "736533Q", "2017-07-13 14:12:00");
+
+// Add 16 records to Trip table
+7. 
+   insert into Trip (ContractNo, Origin, Destination, Distance, Weight, DepartureDate, VehicleAssigned, DriverAssigned, DeliveryStamp)
+   values ("CO0011", "Chicago, Illinois", "New York, New York", 790.0, 2000.0, "2017-06-16 08:10:00", "AE653", "787923C", "2017-06-17 13:17:00"); 
+   insert into Trip (ContractNo, Origin, Destination, Distance, Weight, DepartureDate, VehicleAssigned, DriverAssigned, DeliveryStamp)
+   values ("CO0013", "Saint Agustine, Florida", "Montogomery, Alabama", 405, 3500.0, "2017-06-17 08:25:00", "AF742", "933256Q", "2017-06-18 15:52:00");
+   insert into Trip (ContractNo, Origin, Destination, Distance, Weight, DepartureDate, VehicleAssigned, DriverAssigned, DeliveryStamp)
+   values ("CO0014", "Los Angeles, California", "El Paso, Texas", 802, 2500.0, "2017-06-18 09:03:00", "CA871", "278544C", "2017-06-20 12:30:00");
+   insert into Trip (ContractNo, Origin, Destination, Distance, Weight, DepartureDate, VehicleAssigned, DriverAssigned, DeliveryStamp)
+   values ("CO0011", "Chicago, Illinois", "New York, New York", 790.0, 2000.0, "2017-06-27 08:13:00", "AE653", "787923C", "2017-06-28 14:31:00"); 
+   insert into Trip (ContractNo, Origin, Destination, Distance, Weight, DepartureDate, VehicleAssigned, DriverAssigned, DeliveryStamp)
+   values ("CO0013", "Saint Agustine, Florida", "Montogomery, Alabama", 405, 3500.0, "2017-06-28 08:17:00", "AF742", "933256Q", "2017-06-30 18:27:00");
+   insert into Trip (ContractNo, Origin, Destination, Distance, Weight, DepartureDate, VehicleAssigned, DriverAssigned, DeliveryStamp)
+   values ("CO0014", "Los Angeles, California", "El Paso, Texas", 802, 2500.0, "2017-06-29 09:04:00", "CA871", "278544C", "2017-07-01 19:24:00");
+   
+   insert into Trip (ContractNo, Origin, Destination, Distance, Weight, DepartureDate, VehicleAssigned, DriverAssigned, DeliveryStamp)
+   values ("CO0011", "Chicago, Illinois", "New York, New York", 790.0, 2000.0, "2017-05-16 08:13:00", "AE653", "865263C", "2017-05-18 15:43:00"); 
+   insert into Trip (ContractNo, Origin, Destination, Distance, Weight, DepartureDate, VehicleAssigned, DriverAssigned, DeliveryStamp)
+   values ("CO0013", "Saint Agustine, Florida", "Montogomery, Alabama", 405, 3500.0, "2017-05-17 09:11:00", "AF742", "842471P", "2017-05-18 14:31:00");
+   insert into Trip (ContractNo, Origin, Destination, Distance, Weight, DepartureDate, VehicleAssigned, DriverAssigned, DeliveryStamp)
+   values ("CO0014", "Los Angeles, California", "El Paso, Texas", 802, 2500.0, "2017-05-18 10:01:00", "CA871", "156836P", "2017-05-20 11:21:00");
+   insert into Trip (ContractNo, Origin, Destination, Distance, Weight, DepartureDate, VehicleAssigned, DriverAssigned, DeliveryStamp)
+   values ("CO0016", "Franklin, Kentucky", "Providence, Rhode Island", 1060.0, 1200.0, "2017-05-19 07:58:00", "DA466", "145696S", "2017-05-21 09:48:00");
+   insert into Trip (ContractNo, Origin, Destination, Distance, Weight, DepartureDate, VehicleAssigned, DriverAssigned, DeliveryStamp)
+   values ("CO0018", "Bismarck, North Dakota", "Omaha, Nebraska", 610, 1400.0, "2017-05-20 09:47:00", "EA657", "394204C", "2017-05-22 15:17:00");
+
+   insert into Trip (ContractNo, Origin, Destination, Distance, Weight, DepartureDate, VehicleAssigned, DriverAssigned, DeliveryStamp)
+   values ("CO0011", "Chicago, Illinois", "New York, New York", 790.0, 2000.0, "2017-04-16 08:27:00", "AE653", "865263C", "2017-04-18 16:33:00"); 
+   insert into Trip (ContractNo, Origin, Destination, Distance, Weight, DepartureDate, VehicleAssigned, DriverAssigned, DeliveryStamp)
+   values ("CO0013", "Saint Agustine, Florida", "Montogomery, Alabama", 405, 3500.0, "2017-04-17 09:25:00", "AF742", "842471P", "2017-04-19 17:28:00");
+   insert into Trip (ContractNo, Origin, Destination, Distance, Weight, DepartureDate, VehicleAssigned, DriverAssigned, DeliveryStamp)
+   values ("CO0014", "Los Angeles, California", "El Paso, Texas", 802, 2500.0, "2017-04-18 08:54:00", "CA871", "156836P", "2017-04-21 12:51:00");
+   insert into Trip (ContractNo, Origin, Destination, Distance, Weight, DepartureDate, VehicleAssigned, DriverAssigned, DeliveryStamp)
+   values ("CO0016", "Franklin, Kentucky", "Providence, Rhode Island", 1060.0, 1200.0, "2017-04-19 08:36:00", "DA466", "145696S", "2017-04-22 11:37:00");
+   insert into Trip (ContractNo, Origin, Destination, Distance, Weight, DepartureDate, VehicleAssigned, DriverAssigned, DeliveryStamp)
+   values ("CO0018", "Bismarck, North Dakota", "Omaha, Nebraska", 610, 1400.0, "2017-04-20 10:03:00", "EA657", "394204C", "2017-04-23 15:39:00");
+
+
+/////////// DUMPING DATABASE ////////////////////////
+
+6. select @@datadir;                              // Identify directory where data is stored
+
+7. exit;                                          // exit mariaDB client
+
+8. mysqldump -u root -p forAssign05 > ForAssig05-dump.sql
+
+7. Find the .sql file in the current directory, make a backup in your local memory, and submit it.

@@ -1,0 +1,42 @@
+create database darnellbertassig07;
+use database darnellbertassig07;
+
+CREATE TABLE species (
+    category TEXT,
+    englishName TEXT,
+    scientificName TEXT,
+    aRange TEXT,
+    aOrder TEXT,
+    family TEXT,
+    extinct TEXT,
+    extinctYear TEXT
+);
+
+
+LOAD DATA INFILE '/var/lib/mysql/ClementsList.csv'
+IGNORE INTO TABLE darnellbertassig07.species
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 LINES 
+(@dummy1, @dummy2, @dummy3, category, englishName, scientificName, aRange, aOrder, family, extinct, extinctYear, @dummy4, @dummy5);
+
+
+DELETE FROM species WHERE category != 'subspecies' OR scientificName NOT LIKE 'D%';
+
+mysqldump -u bert -p darnellbertassig07 > darnellbertassig07-dump.sql
+
+
+
+SELECT * FROM species
+WHERE category = 'subspecies'
+AND scientificName LIKE 'D%';
+
+mysqldump -u bert -p darnellbertassig07 species --where="category = 'subspecies' AND scientificName LIKE 'D%'" > darnellbertassig07-dump.sql
+
+
+
+
+
+
+

@@ -1,0 +1,75 @@
+--Creates database--
+CREATE DATABASE test;
+USE test;
+
+
+--Create and populate fact table--
+CREATE TABLE FLIGHTS_FACT_TABLE AS
+SELECT
+    SCHEDULEDFLIGHT.FlightNo AS FlightNo,
+    SCHEDULEDFLIGHT.FlightDate AS FlightDate,
+    AIRPLANE.AirplaneID AS AirplaneID,
+    PILOT.PilotID AS PilotID,
+    PASSENGER.DocumentID AS DocumentID,
+    SEATEDPASSENGER.Seat AS Seat
+FROM
+    darnellbertassig02.SCHEDULEDFLIGHT
+JOIN darnellbertassig02.FLIGHTCONCESSION ON SCHEDULEDFLIGHT.FlightNo = FLIGHTCONCESSION.FlightNo
+JOIN darnellbertassig02.AIRPLANE ON SCHEDULEDFLIGHT.AirplaneID = AIRPLANE.AirplaneID
+JOIN darnellbertassig02.PILOT ON SCHEDULEDFLIGHT.PilotID = PILOT.PilotID
+JOIN darnellbertassig02.SEATEDPASSENGER ON SCHEDULEDFLIGHT.FlightNo = SEATEDPASSENGER.FlightNo
+    AND SCHEDULEDFLIGHT.FlightDate = SEATEDPASSENGER.FlightDate
+JOIN darnellbertassig02.PASSENGER ON SEATEDPASSENGER.DocumentID = PASSENGER.DocumentID;
+
+
+--Create and populate City table--
+CREATE TABLE City (
+    AirportCode INT PRIMARY KEY AUTO_INCREMENT,
+    Name TEXT
+) 
+SELECT Origin AS Name
+FROM darnellbertassig02.FLIGHTCONCESSION
+UNION
+SELECT Destination AS Name
+FROM darnellbertassig02.FLIGHTCONCESSION;
+
+
+--Create and populate FLIGHTCONCESSION_DIMENSION table--
+CREATE TABLE FLIGHTCONCESSION_DIMENSION (
+    FlightNo VARCHAR(7) PRIMARY KEY,
+    Origin INT,
+    Destination INT,
+    DayOfTheWeek BIT(7),
+    TimeOfDay TIME,
+    FOREIGN KEY (Origin) REFERENCES City(AirportCode),
+    FOREIGN KEY (Destination) REFERENCES City(AirportCode)
+)
+SELECT
+    FC.FlightNo AS FlightNo,
+    (SELECT AirportCode FROM City WHERE Name = FC.Origin) AS Origin,
+    (SELECT AirportCode FROM City WHERE Name = FC.Destination) AS Destination,
+    FC.DayOfTheWeek AS DayOfTheWeek,
+    FC.TimeOfDay AS TimeOfDay
+FROM darnellbertassig02.FLIGHTCONCESSION AS FC;
+
+--Dicussion Response--
+SELECT Name, COUNT(DISTINCT FLIGHTCONCESSION_DIMENSION.Origin) AS FlightCount
+FROM FLIGHTCONCESSION_DIMENSION
+JOIN City ON FLIGHTCONCESSION_DIMENSION.Origin = City.AirportCode
+GROUP BY City.Name
+ORDER BY FlightCount DESC
+LIMIT 1;
+
+
+SELECT City.Name, origin_count AS MostFlightsFrom
+FROM (
+      SELECT City.AirportCode, COUNT(FLIGHTCONCESSION_DIMENSION.Origin) AS origin_count
+      FROM FLIGHTCONCESSION_DIMENSION
+      INNER JOIN City ON FLIGHTCONCESSION_DIMENSION.Origin = City.AirportCode
+      GROUP BY City.AirportCode
+) AS origin_counts
+INNER JOIN City ON origin_counts.AirportCode = City.AirportCode
+ORDER BY origin_count DESC
+LIMIT 1;
+
+

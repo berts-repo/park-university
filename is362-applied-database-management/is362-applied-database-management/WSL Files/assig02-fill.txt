@@ -1,0 +1,80 @@
+INSERT INTO PILOT (PilotID, FirstName, Initials, LastName, Salary) VALUES
+('P001', 'FirstName1', 'A', 'LastName1', 200000.00),
+('P002', 'FirstName2', 'B', 'LastName2', 210000.00),
+('P003', 'FirstName3', 'C', 'LastName3', 220000.00),
+('P004', 'FirstName4', 'D', 'LastName4', 230000.00),
+('P005', 'FirstName5', 'E', 'LastName5', 240000.00),
+('P006', 'FirstName6', 'F', 'LastName6', 250000.00),
+('P007', 'FirstName7', 'G', 'LastName7', 260000.00),
+('P008', 'FirstName8', 'H', 'LastName8', 270000.00),
+('P009', 'FirstName9', 'I', 'LastName9', 280000.00),
+('P010', 'FirstName10', 'J', 'LastName10', 290000.00);
+
+INSERT INTO AIRPLANETYPE (TypeID, TypeName, TypeDescription, NumberOfSeats) VALUES
+('Type1', 'Type 1', 'Description of Type 1', 111),
+('Type2', 'Type 2', 'Description of Type 2', 222),
+('Type3', 'Type 3', 'Description of Type 3', 333);
+
+
+
+INSERT INTO LICENSED (DocumentID, AirplaneTypeID, DateGranted, ExpiryDate) VALUES
+('P001', 'Type1', '2024-01-01', '2025-01-01'),
+('P002', 'Type2', '2024-02-02', '2025-02-02'),
+('P003', 'Type3', '2024-03-03', '2025-03-03'),
+('P004', 'Type1', '2024-04-04', '2025-04-04'),
+('P005', 'Type2', '2024-05-05', '2025-05-05'),
+('P006', 'Type3', '2024-06-06', '2025-06-06'),
+('P007', 'Type1', '2024-07-07', '2025-07-07'),
+('P008', 'Type2', '2024-08-08', '2025-08-08'),
+('P009', 'Type3', '2024-09-09', '2025-09-09'),
+('P010', 'Type1', '2024-10-10', '2025-10-10');
+
+
+INSERT INTO FLIGHTCONCESSION (FlightNo, Origin, Destination, DayOfTheWeek, TimeOfDay) VALUES
+('F001', 'New York', 'Los Angeles', b'0111111', '00:00:00'),
+('F002', 'Los Angeles', 'Chicago', b'1011111', '01:00:00'),
+('F003', 'Chicago', 'Houston', b'1101111', '02:00:00'),
+('F004', 'Houston', 'Miami', b'1110111', '03:00:00'),
+('F005', 'Miami', 'Seattle', b'1111011', '04:00:00');
+
+
+INSERT INTO PASSENGER (DocumentID, FirstName, Initials, LastName) VALUES
+('PD001', 'PassFirstName1', 'A', 'PassLastName1'),
+('PD002', 'PassFirstName2', 'B', 'PassLastName2'),
+('PD003', 'PassFirstName3', 'C', 'PassLastName3'),
+('PD004', 'PassFirstName4', 'D', 'PassLastName4'),
+('PD005', 'PassFirstName5', 'E', 'PassLastName5'),
+('PD006', 'PassFirstName6', 'F', 'PassLastName6'),
+('PD007', 'PassFirstName7', 'G', 'PassLastName7'),
+('PD008', 'PassFirstName8', 'H', 'PassLastName8'),
+('PD009', 'PassFirstName9', 'I', 'PassLastName9'),
+('PD010', 'PassFirstName10', 'J', 'PassLastName10');
+
+
+INSERT INTO AIRPLANE (AirplaneID, TypeID) VALUES
+('A1', 'Type1'),
+('A2', 'Type2'),
+('A3', 'Type3'),
+('A4', 'Type1'),
+('A5', 'Type2'),
+('A6', 'Type3'),
+('A7', 'Type1'),
+('A8', 'Type2'),
+('A9', 'Type3'),
+('A10', 'Type1');
+
+INSERT INTO SCHEDULEDFLIGHT (FlightNo, FlightDate, PilotID, AirplaneID) VALUES
+('F001', '2024-03-25', 'P001', 'A1'),
+('F002', '2024-03-26', 'P002', 'A2'),
+('F003', '2024-03-27', 'P003', 'A3'),
+('F004', '2024-03-28', 'P004', 'A4'),
+('F005', '2024-03-29', 'P005', 'A5');
+
+
+INSERT INTO SEATEDPASSENGER (FlightNo, FlightDate, Seat, DocumentID) VALUES
+('F001', '2024-03-25', 's1A', 'PD001'), ('F001', '2024-03-25', 's1B', 'PD002'),
+('F002', '2024-03-26', 's2A', 'PD003'), ('F002', '2024-03-26', 's2B', 'PD004'),
+('F003', '2024-03-27', 's3A', 'PD005'), ('F003', '2024-03-27', 's3B', 'PD006'),
+('F004', '2024-03-28', 's4A', 'PD007'), ('F004', '2024-03-28', 's4B', 'PD008'),
+('F005', '2024-03-29', 's5A', 'PD009'), ('F005', '2024-03-29', 's5B', 'PD010');
+

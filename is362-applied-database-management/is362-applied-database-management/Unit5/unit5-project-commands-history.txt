@@ -1,0 +1,150 @@
+CREATE TABLE department (
+    DepartmentID VARCHAR(3) PRIMARY KEY,
+    Name VARCHAR(50),
+    AisleStart INT,
+    AisleEnd INT,
+    RowStart INT,
+    RowEnd INT
+);
+
+CREATE TABLE works (
+    DateTime DATETIME PRIMARY KEY,
+    EmployeeID VARCHAR(7),
+    DepartmentID VARCHAR(3)
+);
+
+CREATE TABLE location (
+    LocationID VARCHAR(7) PRIMARY KEY,
+    Aisle VARCHAR(2),
+    Row INT,
+);
+
+CREATE TABLE employee (
+    EmployeeID VARCHAR(7) PRIMARY KEY,
+    EmployeeName CHAR(30),
+    Position VARCHAR(30),
+    Phone VARCHAR(12),
+    Address VARCHAR(50),
+    Wage FLOAT
+);
+
+CREATE TABLE product (
+    ProductID VARCHAR(7) PRIMARY KEY,
+    Location VARCHAR(7),
+    Name VARCHAR(50),
+    Description CHAR(255),
+    Price FLOAT NOT NULL,
+    Quantity INT
+);
+
+CREATE TABLE transaction (
+    TransactionID INT PRIMARY KEY AUTO_INCREMENT,
+    Total FLOAT,
+    SalesPerson VARCHAR(7),
+    PurchaseDate DATE NOT NULL,
+    PurchaseTime DATETIME NOT NULL
+);
+    
+CREATE TABLE purchase (
+    PurchaseID INT PRIMARY KEY AUTO_INCREMENT,
+    CustomerID VARCHAR(7),
+    TransactionID INT NOT NULL,
+    ProductID VARCHAR(7) NOT NULL,
+    Quantity INT,
+    Price FLOAT
+);
+
+
+CREATE TABLE history (
+    CustomerID VARCHAR(7) PRIMARY KEY,
+    TransactionID VARCHAR(7),
+    PurchaseDate DATE,
+    Total FLOAT,
+    FirstName CHAR(25),
+    LastName CHAR(30)
+);
+
+CREATE TABLE supply (
+    SupplyID INT PRIMARY KEY AUTO_INCREMENT,
+    SupplierID VARCHAR(7),
+    ProductID VARCHAR(7),
+    Quantity INT,
+    UnitPrice FLOAT NOT NULL
+);
+
+CREATE TABLE customer (
+    CustomerID VARCHAR(7) PRIMARY KEY,
+    FirstName CHAR(25),
+    LastName CHAR(30),
+    Email VARCHAR(50),
+    Phone VARCHAR(12),
+    Address VARCHAR(50),
+    City VARCHAR(25),
+    State CHAR(2)
+);
+
+CREATE TABLE supplier (
+    SupplierID VARCHAR(7) PRIMARY KEY,
+    Name VARCHAR(50),
+    Phone VARCHAR(12),
+    Address VARCHAR(50),
+    Details CHAR(255)
+);
+
+    
+
+ALTER TABLE works
+ADD CONSTRAINT fk_DepartmentID_to_department
+FOREIGN KEY (DepartmentID)
+REFERENCES department(DepartmentID);
+
+ALTER TABLE works
+ADD CONSTRAINT fk_works_to_employee
+FOREIGN KEY (Employee)
+REFERENCES employee(EmployeeID);
+
+ALTER TABLE product
+ADD CONSTRAINT fk_Location_to_location
+FOREIGN KEY (Location)
+REFERENCES location(LocationID);
+
+ALTER TABLE transaction
+ADD CONSTRAINT fk_SalesPerson_to_employee
+FOREIGN KEY (SalesPerson)
+REFERENCES employee(EmployeeID);
+
+ALTER TABLE purchase
+ADD CONSTRAINT fk_CustomerID_to_history
+FOREIGN KEY (CustomerID)
+REFERENCES history(CustomerID);
+
+ALTER TABLE purchase
+ADD CONSTRAINT fk_TransactionID_to_transaction
+FOREIGN KEY (TransactionID)
+REFERENCES transaction(TransactionID);
+
+ALTER TABLE purchase
+ADD CONSTRAINT fk_ProductID_to_product
+FOREIGN KEY (ProductID)
+REFERENCES product(ProductID);
+
+ALTER TABLE history
+ADD CONSTRAINT fk_TransactionID_to_transaction
+FOREIGN KEY (TransactionID)
+REFERENCES transaction(TransactionID);
+
+ALTER TABLE supply
+ADD CONSTRAINT fk_SupplierID_to_supplier
+FOREIGN KEY (SupplierID)
+REFERENCES supplier(SupplierID);
+
+ALTER TABLE product
+ADD CONSTRAINT fk_Supply_to_supply
+FOREIGN KEY (Supply)
+REFERENCES supply(SupplyID);
+
+
+
+
+
+
