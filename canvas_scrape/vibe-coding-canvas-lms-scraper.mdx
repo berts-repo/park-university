@@ -1,0 +1,292 @@
+---
+title: "Vibe Coding a Canvas LMS Scraper: Archiving 4 Years of Coursework"
+date: "2026-01-29"
+excerpt: "Building a 1,350-line Python scraper to preserve my entire academic record from Canvas LMS before graduation - no external dependencies required."
+tags: ["python", "web-scraping", "canvas-lms", "api", "education"]
+---
+
+# Vibe Coding a Canvas LMS Scraper: Archiving 4 Years of Coursework
+
+## Introduction
+
+Before graduating I had my own preservation of my academic record of assignments I completed. I also manually saved some assignment instructions separately. Suddenly I realized there was a REST API available for Canvas and all my academic records. I vibe coded a 1,350-line Python scraper handling pagination, rate limiting, HTML-to-markdown conversion and binary file downloads: all without external dependencies.
+
+## The Problem
+
+Canvas LMS is great while you're a student, but the moment you graduate, that login disappears. All those years of coursework - your submissions, instructor feedback, graded assignments, discussion posts, project files - everything lives behind a wall you can no longer access.
+
+I'd been manually saving some assignment instructions here and there, but it was inconsistent and tedious. When I discovered Canvas had a full REST API (`/api/v1`), I realized I could automate the entire preservation process. The goal was simple: pull down every course, every assignment, every submission, every grade, and organize it all into a readable offline archive.
+
+Canvas doesn't provide a "download everything" feature for students. The built-in export tools are designed for instructors and administrators, not for preserving your personal academic history. So I needed to build my own.
+
+## The Solution
+
+The scraper works in phases:
+
+**Phase 1: Discovery**
+- Fetch all courses (both completed and active enrollment)
+- Parse semester information from course codes using regex patterns
+- Deduplicate courses by ID
+
+**Phase 2: Per-Course Export**
+- Fetch syllabus, announcements, and module structure
+- Iterate through each module and export items (assignments, discussions, quizzes, pages, files)
+- Download submission attachments and instructor feedback
+- Track grades and calculate category totals
+
+**Phase 3: Grade Aggregation**
+- Generate per-course grade summaries with category breakdowns
+- Build master index organized by semester and department
+- Calculate overall GPA across all courses
+
+The key technical decision was to use only Python's standard library (`urllib`, `json`, `html.parser`). No requests, no BeautifulSoup, no external dependencies. This makes the script portable and self-contained.
+
+## The Technical Details
+
+### API Pagination
+
+Canvas paginates results using Link headers. The scraper automatically follows `rel="next"` links to collect all results:
+
+```python
+def api_get(endpoint: str, params: Optional[Dict[str, str]] = None) -> Any:
+    url = build_url(endpoint, params)
+    all_results: List[dict] = []
+
+    while url:
+        req = urllib.request.Request(url, headers=HEADERS)
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read().decode())
+
+            if not isinstance(data, list):
+                return data
+
+            all_results.extend(data)
+            url = None
+            link_header = resp.getheader("Link", "")
+            if link_header:
+                for part in link_header.split(","):
+                    if 'rel="next"' in part:
+                        url = part.split("<")[1].split(">")[0]
+                        break
+
+        time.sleep(BASE_DELAY)
+
+    return all_results
+```
+
+### Rate Limiting
+
+The scraper implements exponential backoff with retry logic and respects `429 Too Many Requests` responses:
+
+```python
+except urllib.error.HTTPError as exc:
+    if exc.code == 429:
+        retry_after = int(exc.headers.get("Retry-After", 5))
+        print(f"  [Rate limited] Waiting {retry_after}s...")
+        time.sleep(retry_after)
+        continue
+    if attempt < MAX_RETRIES - 1:
+        delay = BASE_DELAY * (2 ** attempt)
+        print(f"  [API Error {exc.code}] {endpoint} - retry in {delay:.1f}s")
+        time.sleep(delay)
+```
+
+There's a base delay of 0.3 seconds between requests to be polite to Canvas servers, with exponential backoff on failures.
+
+### HTML to Markdown Conversion
+
+Canvas stores content as HTML. I built a simple HTML parser to convert it to readable plain text:
+
+```python
+class HTMLToText(HTMLParser):
+    """Simple HTML to plain text converter."""
+
+    BLOCK_TAGS = {"p", "div", "h1", "h2", "h3", "h4", "h5", "h6", "li", "tr"}
+    ENDLINE_TAGS = BLOCK_TAGS | {"table"}
+    SKIP_TAGS = {"script", "style"}
+
+    def handle_starttag(self, tag: str, attrs: List[tuple]) -> None:
+        if tag in self.SKIP_TAGS:
+            self._skip = True
+            return
+        if tag == "br":
+            self._text.append("\n")
+        elif tag in self.BLOCK_TAGS:
+            self._text.append("\n")
+        elif tag == "a":
+            for attr_name, attr_val in attrs:
+                if attr_name == "href":
+                    self._text.append(f" [link: {attr_val}] ")
+```
+
+This preserves structure while stripping out scripts, styles, and excessive whitespace.
+
+### Semester Organization
+
+Park University uses 8-week terms with specific naming conventions. I built a parser to extract year and term from course codes:
+
+```python
+def parse_semester(canvas_name: str, start_at: str = "") -> Tuple[str, str]:
+    """Extract year + term from Canvas course name or start date.
+
+    Examples:
+        "CS152DLAS2A2021"     -> ("2021", "spring_2")
+        "BI101DLBS1A2022"     -> ("2022", "spring_1")
+        "MA125DLAF1A2021"     -> ("2021", "fall_1")
+    """
+    m = re.search(r'([SUF][12])A(\d{4})', canvas_name)
+    if m:
+        term_code = m.group(1).upper()
+        year = m.group(2)
+        term_name = TERM_MAP.get(term_code, term_code.lower())
+        return (year, term_name)
+```
+
+The pattern `[SUF][12]` matches Spring/Summer/Fall terms 1 and 2, with fallback logic using the course start date if the naming convention doesn't match.
+
+### Binary File Downloads
+
+The scraper downloads all submission attachments, course files, and instructor resources:
+
+```python
+def download_file(url: str, dest_path: Path) -> bool:
+    """Download a binary file from Canvas using auth token."""
+    if dest_path.exists():
+        return True  # already downloaded
+
+    dest_path.parent.mkdir(parents=True, exist_ok=True)
+
+    for attempt in range(MAX_RETRIES):
+        try:
+            req = urllib.request.Request(url, headers=HEADERS)
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                with open(dest_path, "wb") as f:
+                    while True:
+                        chunk = resp.read(8192)
+                        if not chunk:
+                            break
+                        f.write(chunk)
+            return True
+        except Exception as exc:
+            if attempt < MAX_RETRIES - 1:
+                time.sleep(BASE_DELAY * (2 ** attempt))
+                continue
+            return False
+```
+
+### Grade Calculation
+
+The scraper automatically categorizes assignments (Discussion, Quiz, Lab, Exam, etc.) and calculates grades with category breakdowns:
+
+```python
+def categorize_assignment(name: str) -> str:
+    """Auto-detect assignment category from name."""
+    lower = name.lower()
+    if "discussion" in lower:
+        return "Discussion"
+    if "quiz" in lower:
+        return "Quiz"
+    if "exam" in lower or ("final" in lower and "exam" in lower):
+        return "Exam"
+    if "homework" in lower or "hw" in lower:
+        return "Homework"
+    if "experiment" in lower or "lab" in lower:
+        return "Lab"
+    return "Other"
+```
+
+It then generates markdown tables with category summaries, letter grades, and GPA calculations:
+
+```python
+def pct_to_letter(pct: float) -> str:
+    if pct >= 93:
+        return "A"
+    if pct >= 90:
+        return "A-"
+    if pct >= 87:
+        return "B+"
+    # ... etc
+```
+
+Each course gets a `grades.md` file with complete grade breakdowns, and a master `GRADES.md` aggregates everything with semester-by-semester GPA tracking.
+
+## The Result
+
+The scraper successfully exported my complete Park University academic record:
+
+- **40+ courses** organized by semester (2021 Spring through graduation)
+- **45+ megabytes** of course content, assignments, and submissions
+- **Complete grade history** with automatic GPA calculation
+- **All submission files** downloaded and organized by module
+- **Instructor feedback** preserved with submission comments
+- **Master index** with courses organized by semester and department
+
+The final structure looks like this:
+
+```
+output/
+├── INDEX.md (master course index)
+├── GRADES.md (GPA dashboard)
+├── 2021_spring_1/
+│   ├── CS152_Intro_Python_Programming/
+│   │   ├── README.md
+│   │   ├── grades.md
+│   │   ├── syllabus.md
+│   │   ├── announcements.md
+│   │   ├── unit_01/
+│   │   │   ├── discussion.md
+│   │   │   ├── lab_activity.md
+│   │   │   ├── files/
+│   │   │   │   └── BertUnit1.cpp
+│   │   └── unit_02/
+│   └── EN105_First_Year_Writing/
+├── 2021_fall_1/
+│   └── CS202_Secure_Programming/
+└── ...
+```
+
+Every assignment includes:
+- Original instructions
+- My submission text
+- Submitted files (downloaded)
+- Score and grade
+- Instructor feedback
+- Due dates and timestamps
+
+The whole thing runs with a single command:
+
+```bash
+python canvas_export.py
+```
+
+Or to resume after interruption:
+
+```bash
+python canvas_export.py --resume
+```
+
+Or to export just one course:
+
+```bash
+python canvas_export.py --course CS202
+```
+
+## Lessons Learned
+
+1. **Always check for APIs first.** I was manually saving files when a complete API existed the whole time.
+
+2. **Standard library is powerful.** No need for external dependencies when `urllib` and `html.parser` do the job.
+
+3. **Respect rate limits.** Exponential backoff and polite delays make scraping sustainable and server-friendly.
+
+4. **Handle inconsistency.** Real-world data (course naming, assignment types, date formats) is messy. Build fallbacks.
+
+5. **Preservation matters.** Your academic work is valuable. Don't let it disappear when you lose institutional access.
+
+The complete source code lives in `canvas_export.py` - 1,350 lines of pure Python that turned four years of coursework into a portable, searchable archive.
+
+Now I own my academic history. Forever.
+
+---
+
+*Built with Python's standard library, vibe coding, and a healthy fear of losing data.*

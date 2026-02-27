@@ -1,0 +1,122 @@
+# EN105DLLS1A2021 First Year Writing Seminar I Critical Reading, Writing and Thinking Across Conte
+
+- **Code:** EN105
+- **ID:** 58824
+- **Semester:** 2021 Spring 1
+- **Start:** 2020-12-21T06:00:00Z
+- **End:** 2021-03-08T05:59:00Z
+
+## Modules
+
+### Course Information Module
+- [Page] [Course Overview](./course_information_module/course_overview.md)
+- [Page] [Course Policies](./course_information_module/course_policies.md)
+- [Page] [Assignments and Grading](./course_information_module/assignments_and_grading.md)
+- [Page] [Textbooks and Materials](./course_information_module/textbooks_and_materials.md)
+- [Page] [Schedule](./course_information_module/schedule.md)
+- [Discussion] [Instructor's Office](./course_information_module/instructors_office.md)
+- [Discussion] [Introductions](./course_information_module/introductions.md)
+
+### Required Acceptance of Student's Rights and Responsibilities
+- [Quiz] [Park Pledge: #OneFamily Staying Healthy, Studying Strong ](./required_acceptance_of_students_rights_and_responsibilities/park_pledge_onefamily_staying_healthy_studying_strong.md)
+- [Quiz] [Student Acceptance of Rights and Responsibilities](./required_acceptance_of_students_rights_and_responsibilities/student_acceptance_of_rights_and_responsibilities.md)
+- [Quiz] [Student Information Sheet](./required_acceptance_of_students_rights_and_responsibilities/student_information_sheet.md)
+- [Quiz] [Professional Communication and Netiquette](./required_acceptance_of_students_rights_and_responsibilities/professional_communication_and_netiquette.md)
+- [Assignment] [Notes - Plagiarism](./required_acceptance_of_students_rights_and_responsibilities/notes_-_plagiarism.md)
+- [Assignment] [Plagiarism Quiz](./required_acceptance_of_students_rights_and_responsibilities/plagiarism_quiz.md)
+- [Quiz] [Writing Skills Inventory](./required_acceptance_of_students_rights_and_responsibilities/writing_skills_inventory.md)
+
+### Unit 1: Reading Rhetorically (01/11-01/17)
+- [Page] [Unit 1: Overview](./unit_01/overview.md)
+- [Page] [Unit 1: Critical Reading Strategies](./unit_01/critical_reading_strategies.md)
+- [Page] [Unit 1: Writing Processes](./unit_01/writing_processes.md)
+- [Page] [Unit 1: Thinking About Rhetorical Concepts](./unit_01/thinking_about_rhetorical_concepts.md)
+- [Page] [Unit 1: Writing Portfolio Assignment Preview](./unit_01/writing_portfolio_assignment_preview.md)
+- [Quiz] [Unit 1: Reading Quiz](./unit_01/reading_quiz.md)
+- [Discussion] [Unit 1: Discussion](./unit_01/discussion.md)
+- [Assignment] [Unit 1: Writer's Journal](./unit_01/writers_journal.md)
+- [Discussion] [Unit 1: Writing Mastery - Apostrophes](./unit_01/writing_mastery_-_apostrophes.md)
+- [Assignment] [Unit 1: Major Writing Assignment 1](./unit_01/major_writing_assignment_1.md)
+
+### Unit 2: Language & Community (01/18-01/24)
+- [Page] [Unit 2: Overview](./unit_02/overview.md)
+- [Page] [Unit 2: Critical Reading Strategies](./unit_02/critical_reading_strategies.md)
+- [Page] [Unit 2: Writing Processes](./unit_02/writing_processes.md)
+- [Page] [Unit 2: Thinking About Rhetorical Concepts](./unit_02/thinking_about_rhetorical_concepts.md)
+- [Quiz] [Unit 2: Reading Quiz](./unit_02/reading_quiz.md)
+- [Discussion] [Unit 2: Discussion](./unit_02/discussion.md)
+- [Assignment] [Unit 2: Writer's Journal](./unit_02/writers_journal.md)
+- [Discussion] [Unit 2: Writing Mastery - Active/Passive Voice](./unit_02/writing_mastery_-_activepassive_voice.md)
+- [Assignment] [Unit 2: Major Writing Assignment 2](./unit_02/major_writing_assignment_2.md)
+
+### Unit 3: Writing To Explain (01/25-01/31)
+- [Page] [Unit 3: Overview](./unit_03/overview.md)
+- [Page] [Unit 3: Critical Reading Strategies](./unit_03/critical_reading_strategies.md)
+- [Page] [Unit 3: Writing Processes](./unit_03/writing_processes.md)
+- [Page] [Unit 3: Thinking About Rhetorical Concepts](./unit_03/thinking_about_rhetorical_concepts.md)
+- [Quiz] [Unit 3: Reading Quiz](./unit_03/reading_quiz.md)
+- [Discussion] [Unit 3: Discussion](./unit_03/discussion.md)
+- [Assignment] [Unit 3: Writer's Journal](./unit_03/writers_journal.md)
+- [Discussion] [Unit 3: Writing Mastery - Avoiding Fragments](./unit_03/writing_mastery_-_avoiding_fragments.md)
+- [Assignment] [Unit 3: Major Writing Assignment 3](./unit_03/major_writing_assignment_3.md)
+
+### Unit 4: Understanding Rhetorical Appeals (02/01-02/07)
+- [Page] [Unit 4: Overview](./unit_04/overview.md)
+- [Page] [Unit 4: Critical Reading Strategies](./unit_04/critical_reading_strategies.md)
+- [Page] [Unit 4: Writing Processes](./unit_04/writing_processes.md)
+- [Page] [Unit 4: Thinking About Rhetorical Concepts](./unit_04/thinking_about_rhetorical_concepts.md)
+- [Discussion] [Unit 4: Peer Review](./unit_04/peer_review.md)
+- [Quiz] [Unit 4: Reading Quiz](./unit_04/reading_quiz.md)
+- [Discussion] [Unit 4: Discussion](./unit_04/discussion.md)
+- [Assignment] [Unit 4: Writer's Journal](./unit_04/writers_journal.md)
+- [Discussion] [Unit 4: Writing Mastery - Comma Splices and Fused Sentences](./unit_04/writing_mastery_-_comma_splices_and_fused_sentences.md)
+- [Assignment] [Unit 4 Revision Project 1](./unit_04/revision_project_1.md)
+
+### Unit 5: Making Claims & Using Evidence (02/08-02/14)
+- [Page] [Unit 5: Overview](./unit_05/overview.md)
+- [Page] [Unit 5: Critical Reading Strategies](./unit_05/critical_reading_strategies.md)
+- [File] [Unit 5: PowerPoint - Searching Basics Using the Park University Library Website New.pptx](./unit_05/powerpoint_-_searching_basics_using_the_park_university_library_website_newpptx.md)
+- [Page] [Unit 5: Writing Processes](./unit_05/writing_processes.md)
+- [Page] [Unit 5: Thinking About Rhetorical Concepts](./unit_05/thinking_about_rhetorical_concepts.md)
+- [Quiz] [Unit 5: Reading Quiz](./unit_05/reading_quiz.md)
+- [Discussion] [Unit 5: Discussion](./unit_05/discussion.md)
+- [Assignment] [Unit 5: Writer's Journal](./unit_05/writers_journal.md)
+- [Discussion] [Unit 5: Writing Mastery - Major Comma Uses](./unit_05/writing_mastery_-_major_comma_uses.md)
+- [Assignment] [Unit 5: Major Writing Assignment 4](./unit_05/major_writing_assignment_4.md)
+
+### Unit 6: So What? Who Cares? Making Your Writing Matter (02/15-02-21)
+- [Page] [Unit 6: Overview](./unit_06/overview.md)
+- [Page] [Unit 6: Critical Reading Strategies](./unit_06/critical_reading_strategies.md)
+- [Page] [Unit 6:Writing Processes](./unit_06/writing_processes.md)
+- [Page] [Unit 6: Thinking About Rhetorical Concepts](./unit_06/thinking_about_rhetorical_concepts.md)
+- [Discussion] [Unit 6: Discussion](./unit_06/discussion.md)
+- [Discussion] [Unit 6: Peer Review](./unit_06/peer_review.md)
+- [Assignment] [Unit 6: Writer's Journal](./unit_06/writers_journal.md)
+- [Discussion] [Unit 6: Writing Mastery - Misplaced and Dangling Modifiers](./unit_06/writing_mastery_-_misplaced_and_dangling_modifiers.md)
+- [Assignment] [Unit 6: Revision Project 2](./unit_06/revision_project_2.md)
+
+### Unit 7: Revising for Structure & Reflecting on Your Learning (02/22-02/28)
+- [Page] [Unit 7: Overview](./unit_07/overview.md)
+- [Page] [Unit 7: Writing Processes](./unit_07/writing_processes.md)
+- [Page] [Unit 7: Thinking About Rhetorical Concepts](./unit_07/thinking_about_rhetorical_concepts.md)
+- [Discussion] [Unit 7: Peer Review (Reflective Essay)](./unit_07/peer_review_reflective_essay.md)
+- [Quiz] [Unit 7: Reading Quiz](./unit_07/reading_quiz.md)
+- [Discussion] [Unit 7: Discussion](./unit_07/discussion.md)
+- [Assignment] [Unit 7: Writer's Journal](./unit_07/writers_journal.md)
+- [Discussion] [Unit 7: Writing Mastery - Parallel Structure](./unit_07/writing_mastery_-_parallel_structure.md)
+- [Assignment] [Unit 7: Writing Portfolio](./unit_07/writing_portfolio.md)
+- [ExternalTool] [Student Opinion of Teaching Survey](./unit_07/student_opinion_of_teaching_survey.md)
+
+### Unit 8: Style, Clarity, & Economy (SHORT WEEK: Mon-Fri, 03/01-03/05)
+- [Page] [Unit 8: Overview](./unit_08/overview.md)
+- [Page] [Unit 8: Critical Reading Strategies](./unit_08/critical_reading_strategies.md)
+- [Page] [Unit 8: Writing Processes](./unit_08/writing_processes.md)
+- [Page] [Unit 8: Thinking About Rhetorical Concepts](./unit_08/thinking_about_rhetorical_concepts.md)
+- [Quiz] [Unit 8: Reading Quiz](./unit_08/reading_quiz.md)
+- [Discussion] [Unit 8: Discussion](./unit_08/discussion.md)
+- [Discussion] [Unit 8: Writing Mastery - Sentence Combining](./unit_08/writing_mastery_-_sentence_combining.md)
+- [Assignment] [Unit 8: Writer's Journal](./unit_08/writers_journal.md)
+- [ExternalTool] [Student Opinion of Teaching Survey](./unit_08/student_opinion_of_teaching_survey.md)
+
+## Miscellaneous (1 orphan assignments)
+See [misc/](./misc/) for assignments not in any module.

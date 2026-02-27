@@ -1,0 +1,157 @@
+Q1: List the contract number and the name of all clients with short-term contracts with an Insurance value larger than their average.
+
+
+SELECT contract.ContractNo, client.Name
+FROM contract
+JOIN client ON contract.ClientID = client.ClientID
+JOIN shorttermcontract ON contract.ContractNo = shorttermcontract.ContractNo
+WHERE shorttermcontract.InsuranceValue > (
+    SELECT AVG(InsuranceValue)
+    FROM shorttermcontract
+);
+
+
+
+
+Q2: List the contract number and the name of all clients with short-term contracts who paid above-average prices and below-average Insurance values.
+
+
+SELECT shorttermcontract.ContractNo, client.Name
+FROM shorttermcontract
+JOIN contract ON shorttermcontract.ContractNo = contract.ContractNo
+JOIN client ON contract.ClientID = client.ClientID
+WHERE shorttermcontract.Price > (
+    SELECT AVG(Price)
+    FROM shorttermcontract
+)
+AND shorttermcontract.InsuranceValue < (
+    SELECT AVG(InsuranceValue)
+    FROM shorttermcontract
+);
+
+
+
+
+Q3: List the numbers of all trips with their total price and total insurance value for long-term contracts with prices above the average and insurance below the average. Hints: in trips for long-term contracts, the total price is calculated by multiplying the PricePerMile in a contract by the Distance driven in the trip. The total insurance value is calculated by multiplying the InsurancePerPound in a contract by the Weight of the trip.
+
+
+SELECT trip.TripNo,    
+    SUM(longtermcontract.PricePerMile * trip.Distance) AS TotalPrice,
+    SUM(longtermcontract.InsurancePerPound * trip.Weight) AS TotalInsuranceValue
+FROM trip
+JOIN longtermcontract ON trip.ContractNo = longtermcontract.ContractNo
+WHERE longtermcontract.PricePerMile > (
+    SELECT AVG(PricePerMile)
+    FROM longtermcontract
+)
+AND longtermcontract.InsurancePerPound < (
+    SELECT AVG(InsurancePerPound)
+    FROM longtermcontract
+)
+GROUP BY trip.TripNo;
+
+
+
+
+Q4: List the last name of the drivers together with their total amount of commissions for long-term trips of all drivers who made the average basic salary. Hints: The commissions are obtained by calculating the percentage the driver gets from the total price for a trip. All these commissions should be added per driver (SUM). A subquery is needed to get the average basic salary of all drivers.
+
+
+SELECT driver.LastName,
+    ROUND(SUM(longtermcontract.PricePerMile * trip.Distance * driver.CommissionPerTrip / 100), 2) AS Commission
+FROM trip
+JOIN driver ON trip.DriverAssigned = driver.DocumentID
+JOIN longtermcontract ON trip.ContractNo = longtermcontract.ContractNo
+WHERE driver.BasicSalary = (
+    SELECT AVG(BasicSalary)
+    FROM driver
+)
+GROUP BY driver.LastName;
+
+
+
+
+Q5: List the driver’s document, total distance (Sum), and the average weight of all trips made for long-term contracts by the driver(s) with the highest basic salaries.
+
+
+SELECT driver.DocumentID,
+   SUM(trip.Distance) AS TotalDistance,
+   AVG(trip.Weight) AS AverageWeight
+FROM trip
+JOIN driver ON trip.DriverAssigned = driver.DocumentID
+JOIN longtermcontract ON trip.ContractNo = longtermcontract.ContractNo
+WHERE driver.BasicSalary = (
+    SELECT MAX(BasicSalary)
+    FROM driver
+)
+GROUP BY driver.DocumentID;
+
+
+
+
+Q6: For every record in the Trip table, list the concatenation of the first three letters of the Origin field, with the first three letters of the Destination of the trip, the name of the month in the DepartureDate field, and the name of the day in the DeliveryStamp field. Each section should be separated by a dash (-). The concatenation should be all in uppercase. Example: For a trip from Chicago to New Orleans starting on 2018-05-12 and ending on 2018-05-14, the concatenation will be: “CHI-NEW-MAY-MON”.
+
+
+SELECT CONCAT(
+    UPPER(LEFT(Origin, 3)), '-', 
+    UPPER(TRIM(LEFT(Destination, 3))), '-', 
+    UPPER(LEFT(MONTHNAME(DepartureDate), 3)), '-', 
+    UPPER(LEFT(DAYNAME(DeliveryStamp), 3))
+) AS ConcatenatedString
+FROM trip;
+
+
+
+
+Q7: List the last names of all drivers who made a trip for a long-term contract that began by or after June 20, 2017, and ended by or before June 30, 2017.
+
+
+SELECT DISTINCT driver.LastName
+FROM trip
+JOIN driver ON trip.DriverAssigned = driver.DocumentID
+JOIN longtermcontract ON trip.ContractNo = longtermcontract.ContractNo
+WHERE DATE(trip.DepartureDate) >= '2017-06-20' 
+AND DATE(trip.DeliveryStamp) <= '2017-06-30';
+
+
+
+
+Q8: List the client’s name, contract number of all short-term contracts which have a delivery stamp that is not more than two days from the date the contract was signed. List also the date the contract was signed and the delivery date.
+
+
+SELECT client.Name, shorttermcontract.ContractNo, shorttermcontract.DateSigned, shorttermcontract.DeliveryStamp
+FROM shorttermcontract
+JOIN contract ON shorttermcontract.ContractNo = contract.ContractNo
+JOIN client ON contract.ClientID = client.ClientID
+WHERE DATEDIFF(shorttermcontract.DeliveryStamp, shorttermcontract.DateSigned) < 3;
+
+
+
+
+Q9: List trip number and the number of days between the departure date and the delivery stamp of all trips for long-term contracts that departed in June 2017.
+
+
+SELECT TripNo, DATEDIFF(DeliveryStamp, DepartureDate) AS DaysBetween
+FROM trip
+WHERE ContractNo IN (
+    SELECT ContractNo
+    FROM longtermcontract
+    WHERE YEAR(DepartureDate) = 2017 
+    AND MONTH(DepartureDate) = 6
+);
+
+
+
+
+Q10: List the number of trips (count how many) made per month for long-term contracts. Sort the listing in descending order of the month.
+
+
+SELECT YEAR(DepartureDate) AS Year,
+    MONTH(DepartureDate) AS Month,
+    COUNT(*) AS NumTrips
+FROM trip
+WHERE ContractNo IN (
+    SELECT ContractNo
+    FROM longtermcontract
+)
+GROUP BY YEAR(DepartureDate), MONTH(DepartureDate)
+ORDER BY Year DESC, Month DESC;

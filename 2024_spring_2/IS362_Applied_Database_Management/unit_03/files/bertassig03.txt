@@ -1,0 +1,129 @@
+Q1: List the last name and first name of all drivers who drove for a short-term contract together with the client’s name. Sort the results in ascending order of the driver’s last name. 
+
+SELECT driver.LastName, driver.FirstName, client.Name AS ClientName
+FROM shorttermcontract, driver, contract, client
+WHERE shorttermcontract.DriverAssigned = driver.DocumentID
+AND shorttermcontract.ContractNo = contract.ContractNo
+AND contract.ClientID = client.ClientID
+ORDER BY driver.LastName ASC;
+
+
+
+Q2: List the trip numbers, their origin, and destination together with the names of clients with long-term contracts. List only records of clients whose name begins with the letter ‘C’. Sort the results per the client’s name and trip number.
+
+SELECT trip.TripNo, trip.Origin, trip.Destination, client.Name AS ClientName
+FROM trip, longtermcontract, contract, client
+WHERE trip.ContractNo = contract.ContractNo
+AND contract.ClientID = client.ClientID
+AND contract.ContractNo = longtermcontract.ContractNo
+AND client.Name LIKE 'C%'
+ORDER BY client.Name, trip.TripNo;
+
+
+
+Q3: List the last name and first name of all drivers together with the number plates of the vehicles they have driven for long-term contracts. Sort the list in ascending order of the driver’s last name. Avoid duplication of records.
+
+SELECT DISTINCT driver.LastName, driver.FirstName, vehicle.NumberPlate
+FROM vehicle, trip, longtermcontract, driver
+WHERE trip.DriverAssigned = driver.DocumentID
+AND trip.ContractNo = longtermcontract.ContractNo
+AND trip.VehicleAssigned = vehicle.NumberPlate
+ORDER BY driver.LastName ASC;
+
+
+
+Q4: List the last name and first name of all drivers together with the number plates of the vehicles they have driven for short-term contracts. List only drivers whose basic salary is greater than 115000. Sort the list in ascending order of the driver’s last name. Avoid duplication of records.
+
+SELECT DISTINCT driver.LastName, driver.FirstName, vehicle.NumberPlate
+FROM vehicle, driver, shorttermcontract
+WHERE driver.BasicSalary > 115000
+AND shorttermcontract.DriverAssigned = driver.DocumentID
+AND shorttermcontract.VehicleAssigned = vehicle.NumberPlate
+ORDER BY driver.LastName ASC;
+
+
+
+Q5: List the number plates of all vehicles and the last and first names of all drivers that have been used by the client “Chris Rock” in his long-term contract. Sort the list in ascending order of number plate. Avoid duplications of records.
+
+SELECT DISTINCT trip.VehicleAssigned, driver.LastName, driver.FirstName
+FROM trip, driver, longtermcontract, client, contract
+WHERE client.Name = 'Chris Rock'
+AND driver.DocumentID = trip.DriverAssigned
+AND trip.ContractNo = longtermcontract.ContractNo
+AND longtermcontract.ContractNo = contract.ContractNo
+AND contract.ClientID = client.ClientID
+ORDER BY trip.VehicleAssigned ASC;
+
+
+
+Q6: Count the number of trips and the total number of miles driven (in the Distance field) made by all drivers in long-term contracts whose LastNames begin with either of the letters “A”, “B”, “C” or “D”.
+
+SELECT COUNT(trip.TripNo) AS NumberOfTrips, SUM(trip.Distance) AS TotalMiles
+FROM trip, contract, driver
+WHERE contract.IsLongTerm = 1
+AND (driver.LastName LIKE 'A%' 
+OR driver.LastName LIKE 'B%'
+OR driver.LastName LIKE 'C%'
+OR driver.LastName LIKE 'D%')
+AND trip.ContractNo = contract.ContractNo
+AND trip.DriverAssigned = driver.DocumentID;
+
+
+
+Q7: List the total weight, average weight, minimum weight, and maximum weight of all trips made in a long contract signed by all clients whose Firstname begins with the letter “J”.
+
+SELECT SUM(trip.Weight) AS TotalWeight,
+AVG(trip.Weight) AS AverageWeight,
+MIN(trip.Weight) AS MinimumWeight,
+MAX(trip.Weight) AS MaximumWeight
+FROM trip, contract, client
+WHERE contract.IsLongTerm = 1
+AND client.Name LIKE 'J%'
+AND trip.ContractNo = contract.ContractNo
+AND contract.ClientID = client.ClientID;
+
+
+
+Q8: List the average insurance value, the total price charged, and the total driver commission of all short-term contracts per driver’s LastName. Sort the listing in descending order of the total commission.
+
+SELECT driver.LastName,
+AVG(shorttermcontract.InsuranceValue) AS AverageInsurance,
+SUM(shorttermcontract.Price) AS TotalPrice,
+SUM(driver.CommissionPerTrip) AS TotalCommission
+FROM shorttermcontract, driver
+WHERE shorttermcontract.DriverAssigned = driver.DocumentID
+GROUP BY driver.LastName
+ORDER BY TotalCommission DESC;
+
+
+
+Q9: List the total distance and total weight of all long-term contracts per client’s name and vehicle’s number plate. Sort the list by the ascending client’s name. Show only records where the total weight is larger than 5000.
+
+SELECT client.Name AS ClientName, vehicle.NumberPlate, 
+SUM(trip.Weight) AS TotalWeight, 
+SUM(trip.Distance) AS TotalDistance
+FROM client, contract, shorttermcontract, trip, vehicle, longtermcontract
+WHERE client.ClientID = contract.ClientID
+AND contract.ContractNo = shorttermcontract.ContractNo
+AND shorttermcontract.ContractNo = trip.ContractNo
+AND trip.VehicleAssigned = vehicle.NumberPlate
+AND contract.ContractNo = longtermcontract.ContractNo
+GROUP BY client.Name, vehicle.NumberPlate
+HAVING TotalWeight > 5000
+ORDER BY client.Name ASC;
+
+
+
+Q10: List the total price charged to clients and the average insurance value in long-term contracts per client. The total price is calculated by adding all costs per trip. A cost per trip is the price per mile multiplied by the distance in every trip. The average insurance value is the average of the insurance per pound after it is multiplied by the weight of the trip. Exclude from the report all records with less than 4000 in average insurance value. Sort the listing by descending order of total price charged.
+
+SELECT client.Name AS ClientName,
+SUM(trip.Distance * longtermcontract.PricePerMile) AS TotalPrice,
+AVG(trip.Weight * longtermcontract.InsurancePerPound) AS AverageInsuranceValue
+FROM client, contract, longtermcontract, trip
+WHERE client.ClientID = contract.ClientID
+AND contract.ContractNo = longtermcontract.ContractNo
+AND longtermcontract.ContractNo = trip.ContractNo
+GROUP BY client.Name
+HAVING AverageInsuranceValue >= 4000
+ORDER BY TotalPrice DESC;
+
