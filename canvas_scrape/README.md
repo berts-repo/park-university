@@ -1,18 +1,21 @@
 # Canvas Course Scraper
 
-Exports all Park University Canvas LMS courses into an organized offline archive with submissions, grades, file downloads, and a master index.
+Exports Canvas LMS courses into an organized offline archive with submissions, grades, file downloads, and a master index.
 
 ## Setup
 
-1. Create `config.json` in this directory with your Canvas API token:
+1. Create `config.json` in this directory with your Canvas URL and API token:
 
 ```json
 {
+  "canvas_url": "https://canvas.example.edu",
   "canvas_token": "REDACTED"
 }
 ```
 
-Alternatively, set the `CANVAS_TOKEN` environment variable.
+The URL can be either the Canvas root URL, such as `https://canvas.example.edu`, or the full API base URL ending in `/api/v1`.
+
+Alternatively, set the `CANVAS_TOKEN` environment variable for the token. The Canvas URL still belongs in `config.json`.
 
 2. Requires Python 3.7+ (no external dependencies).
 
@@ -20,16 +23,16 @@ Alternatively, set the `CANVAS_TOKEN` environment variable.
 
 ```bash
 # List all courses (no export)
-python3 canvas_export.py --list
+python3 canvas_export_generic.py --list
 
 # Export a single course by name or code
-python3 canvas_export.py --course BI101
+python3 canvas_export_generic.py --course BI101
 
 # Export all courses
-python3 canvas_export.py
+python3 canvas_export_generic.py
 
 # Resume a previous run (skips courses that already have a README.md)
-python3 canvas_export.py --resume
+python3 canvas_export_generic.py --resume
 ```
 
 ## Output Structure
